@@ -1,2 +1,2 @@
 # WA_Uno
-This is a starter application using the Play framework for the lecture Web Applications at University of Applied Aciences Constance (HTWG).
+This is a starter application using the Play framework for the lecture Web Applications at the University of Applied Sciences Constance (HTWG).
