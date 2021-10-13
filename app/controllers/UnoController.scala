@@ -17,8 +17,8 @@ class UnoController @Inject() (val controllerComponents: ControllerComponents) e
     Ok(print())
   }
 
-  def newGame(): Action[AnyContent] = Action {
-    controller.createGame()
+  def newGame(size: Int): Action[AnyContent] = Action {
+    controller.createGame(size)
     Ok(print())
   }
 
