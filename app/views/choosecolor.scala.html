@@ -6,24 +6,48 @@
             <h1>Uno</h1>
             <table>
                 <td>
-                    <a href=@{s"/setspecial/${controller.getHs2}/blue"}>
-                        <img src=@routes.Assets.versioned(s"images/assets/Blue.png") width="90" />
-                    </a>
+                    @if(controller.getHs2.charAt(2).equals('C')) {
+                        <a href="@{s"/setspecial/${controller.getHs2}/blue"}">
+                            <img src=@routes.Assets.versioned(s"images/assets/Blue_C.png") width="90" />
+                        </a>
+                    } else {
+                        <a href="@{s"/setspecial/${controller.getHs2}/blue"}">
+                            <img src=@routes.Assets.versioned(s"images/assets/Blue_D.png") width="90" />
+                        </a>
+                    }
                 </td>
                 <td>
-                    <a href=@{s"/setspecial/${controller.getHs2}/red"}>
-                        <img src=@routes.Assets.versioned(s"images/assets/Red.png") width="90" />
-                    </a>
+                    @if(controller.getHs2.charAt(2).equals('C')) {
+                        <a href="@{s"/setspecial/${controller.getHs2}/red"}">
+                            <img src=@routes.Assets.versioned(s"images/assets/Red_C.png") width="90" />
+                        </a>
+                    } else {
+                        <a href="@{s"/setspecial/${controller.getHs2}/red"}">
+                            <img src=@routes.Assets.versioned(s"images/assets/Red_D.png") width="90" />
+                        </a>
+                    }
                 </td>
                 <td>
-                    <a href=@{s"/setspecial/${controller.getHs2}/green"}>
-                        <img src=@routes.Assets.versioned(s"images/assets/Green.png") width="90" />
+                @if(controller.getHs2.charAt(2).equals('C')) {
+                    <a href="@{s"/setspecial/${controller.getHs2}/green"}">
+                        <img src=@routes.Assets.versioned(s"images/assets/Green_C.png") width="90" />
                     </a>
+                } else {
+                    <a href="@{s"/setspecial/${controller.getHs2}/green"}">
+                        <img src=@routes.Assets.versioned(s"images/assets/Green_D.png") width="90" />
+                    </a>
+                }
                 </td>
                 <td>
-                    <a href=@{s"/setspecial/${controller.getHs2}/yellow"}>
-                        <img src=@routes.Assets.versioned(s"images/assets/Yellow.png") width="90" />
-                    </a>
+                    @if(controller.getHs2.charAt(2).equals('C')) {
+                        <a href="@{s"/setspecial/${controller.getHs2}/yellow"}">
+                            <img src=@routes.Assets.versioned(s"images/assets/Yellow_C.png") width="90" />
+                        </a>
+                    } else {
+                        <a href="@{s"/setspecial/${controller.getHs2}/yellow"}">
+                            <img src=@routes.Assets.versioned(s"images/assets/Yellow_D.png") width="90" />
+                        </a>
+                    }
                 </td>
             </table>
         </center>
