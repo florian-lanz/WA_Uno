@@ -1,0 +1,45 @@
+@(controller:de.htwg.se.uno.controller.controllerComponent.ControllerInterface)
+
+@main("Uno") {
+    <body background=@routes.Assets.versioned("images/assets/Table_2.png")>
+        <center>
+            <h1>Uno</h1>
+
+            <form action="/new/2">
+                <input type="submit" value="New Game: 2 Players" />
+            </form>
+            <form action="/new/3">
+                <input type="submit" value="New Game: 3 Players" />
+            </form>
+            <form action="/new/4">
+                <input type="submit" value="New Game: 4 Players" />
+            </form>
+            <br>
+
+            @for(player <- 0 until controller.getNumOfPlayers) {
+                @if(player % 2 == 0 && player != 0 || controller.getNumOfPlayers == 2 && player == 1) {
+                    <br><br><br>
+                    <div>
+                        <img src=@routes.Assets.versioned("images/assets/Deck.png") width="90">
+                        <span>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </span>
+                        <img src=@routes.Assets.versioned("images/assets/Deck.png") width="90">
+                    </div>
+                    <br><br><br>
+                }
+                @if((player - 1) % 2 == 0 && controller.getNumOfPlayers != 2) {
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                }
+                <table style="display: inline-block;">
+                @for(card <- 0 until 7) {
+                    <td>
+                        <img src=@routes.Assets.versioned("images/assets/Deck.png") width="90">
+                    </td>
+                }
+                </table>
+            }
+        </center>
+    </body>
+}
