@@ -5,27 +5,64 @@
         <center>
             <h1>Uno</h1>
 
-            <form action="/new/2">
-                <input type="submit" value="New Game: 2 Players" />
-            </form>
-            <form action="/new/3">
-                <input type="submit" value="New Game: 3 Players" />
-            </form>
-            <form action="/new/4">
-                <input type="submit" value="New Game: 4 Players" />
-            </form>
+            <table>
+                <tr>
+                    <td>
+                        <form action="/new/2">
+                            <input type="submit" value="New Game: 2 Players" />
+                        </form>
+                    </td>
+                    <td>
+                        <form action="/new/3">
+                            <input type="submit" value="New Game: 3 Players" />
+                        </form>
+                    </td>
+                    <td>
+                        <form action="/new/4">
+                            <input type="submit" value="New Game: 4 Players" />
+                        </form>
+                    </td>
+                </tr>
+            </table>
+
+            <br>
+
+            <table>
+                <tr>
+                    <td>
+                        <form action="/undo">
+                            <input type="submit" value="Undo" />
+                        </form>
+                    </td>
+                    <td>
+                        <form action="/redo">
+                            <input type="submit" value="Redo" />
+                        </form>
+                    </td>
+                    <td>
+                        <form action="/save">
+                            <input type="submit" value="Save" />
+                        </form>
+                    </td>
+                    <td>
+                        <form action="/load">
+                            <input type="submit" value="Load" />
+                        </form>
+                    </td>
+                </tr>
+            </table>
+
             <br>
 
             @for(player <- 0 until controller.getNumOfPlayers) {
                 @if(player % 2 == 0 && player != 0 || controller.getNumOfPlayers == 2 && player == 1) {
                     <br><br><br>
                     <div>
-                        <img src=@routes.Assets.versioned("images/assets/Deck.png") width="90">
-                        <span>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        </span>
-                        <img src=@routes.Assets.versioned("images/assets/Deck.png") width="90">
+                        <a href="/get"><img src=@routes.Assets.versioned("images/assets/Deck.png") width="90"></a>
+                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                        <a href="/dostep"><img src=@routes.Assets.versioned("images/assets/nextstep.png") width="90"></a>
+                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                        <img src=@routes.Assets.versioned(s"images/assets/${controller.getCardText(3, 1).replace(' ', '_')}.png") width="90">
                     </div>
                     <br><br><br>
                 }
@@ -36,25 +73,30 @@
                 @if(controller.getNumOfPlayers == 2 && player == 1 || controller.getNumOfPlayers == 3 && player == 2 || controller.getNumOfPlayers == 4 && player == 2) {
                     @for(card <- 0 until controller.getLength(4)) {
                         <td>
-                            @if(controller.getCardText(4, card).charAt(0).equals('B')) {
-                                <img src=@routes.Assets.versioned(s"images/assets/${"Blue_" + controller.getCardText(4, card).charAt(2)}.png") width="90">
+                            @if(controller.getCardText(4, card).charAt(0).equals('S')) {
+                                <a href=@{s"/choosecolor/${controller.getCardText(4, card)}"}>
+                                    <img src=@routes.Assets.versioned(s"images/assets/${controller.getCardText(4, card).replace(' ', '_')}.png") width="90">
+                                </a>
+                            } else {
+                                <a href="@{s"/set/${controller.getCardText(4, card)}"}">
+                                    <img src=@routes.Assets.versioned(s"images/assets/${controller.getCardText(4, card).replace(' ', '_')}.png") width="90">
+                                </a>
                             }
-                            @if(controller.getCardText(4, card).charAt(0).equals('R')) {
-                                <img src=@routes.Assets.versioned(s"images/assets/${"Red_" + controller.getCardText(4, card).charAt(2)}.png") width="90">
-                            }
-                            @if(controller.getCardText(4, card).charAt(0).equals('G')) {
-                                <img src=@routes.Assets.versioned(s"images/assets/${"Green_" + controller.getCardText(4, card).charAt(2)}.png") width="90">
-                            }
-                            @if(controller.getCardText(4, card).charAt(0).equals('Y')) {
-                                <img src=@routes.Assets.versioned(s"images/assets/${"Yellow_" + controller.getCardText(4, card).charAt(2)}.png") width="90">
-                                }
                         </td>
                     }
                 } else {
-                    @for(card <- 0 until 7) {
-                        <td>
-                            <img src=@routes.Assets.versioned("images/assets/Deck.png") width="90">
-                        </td>
+                    @if(!(controller.getNumOfPlayers == 4 && player == 3)) {
+                        @for(card <- 0 until controller.getLength(player)) {
+                            <td>
+                                <img src=@routes.Assets.versioned("images/assets/Deck.png") width="90">
+                            </td>
+                        }
+                    } else {
+                        @for(card <- 0 until controller.getLength(2)) {
+                            <td>
+                                <img src=@routes.Assets.versioned("images/assets/Deck.png") width="90">
+                            </td>
+                        }
                     }
                 }
                 </table>
