@@ -83,9 +83,8 @@ class UnoController @Inject() (val controllerComponents: ControllerComponents) e
     Ok(print())
   }
 
-  def print(): String = {
-    s"Uno\n${controller.gameToString}\n\n${controller.controllerEvent("idle")}"
-    //views.html.index()
+  def print(): Html = {
+    views.html.uno(controller)
   }
 
 }
