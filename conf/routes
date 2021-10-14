@@ -7,6 +7,10 @@
 GET     /                           controllers.UnoController.index
 GET     /new/:newGame               controllers.UnoController.newGame(newGame: Int)
 GET     /test                       controllers.UnoController.testGame
+GET     /set/:card                  controllers.UnoController.set(card: String)
+GET     /setspecial/:card/:color    controllers.UnoController.setSpecial(card: String, color: String)
+GET     /get                        controllers.UnoController.get
+GET     /dostep                     controllers.UnoController.doStep
 GET     /undo                       controllers.UnoController.undo
 GET     /redo                       controllers.UnoController.redo
 GET     /save                       controllers.UnoController.save
