@@ -88,4 +88,8 @@ class UnoController @Inject() (val controllerComponents: ControllerComponents) e
     //views.html.index()
   }
 
+  def about(): Action[AnyContent] = Action {
+    Ok(views.html.index())
+  }
+
 }

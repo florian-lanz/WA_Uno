@@ -1,5 +1,77 @@
 @()
 
-@main("Welcome to Play") {
-  <h1>Welcome to Play!</h1>
+@main("Uno") {
+<div class="aboutContainer">
+    <center>
+        <table>
+            <tr>
+                <td>
+                    <form action="/new/2">
+                        <input type="submit" value="Game"/>
+                    </form>
+                </td>
+                <td>
+                    <form action="/">
+                        <input type="submit" value="About"/>
+                    </form>
+                </td>
+            </tr>
+        </table>
+    </center>
+    <h1>Uno</h1>
+    <hr/>
+
+    <p>
+        Uno ist ein US-amerikanisches Kartenspiel, dessen primäres Ziel es ist,
+        seine Karten vergleichbar mit Mau-Mau möglichst schnell abzulegen, wobei mit einem speziellen Blatt gespielt
+        wird. Das Spiel wurde auf der Grundlage einer traditionellen Spielidee bereits 1969 von Merle Robbins – einem
+        Inhaber eines Friseursalons in Milford – mit Hilfe seiner Frau Marie, seinem Sohn
+        Ray und dessen Frau Kathy entwickelt. Anfangs wurde es nur in der eigenen Familie gespielt. Seit 1972 wird das
+        Spiel von der Firma International Games international vermarktet.
+        <br/>
+        <br/>
+        Das Spiel besteht aus 108 Karten. Dabei gibt es Zahlen- sowie Aktionskarten in 4 verschiedenen Farben &
+        außerdem schwarze Sonderkarten. Die Zahlen- & Aktionskarten gibt es in den Farben Blau, Grün, Gelb & Rot. Die
+        Zahlenkarten gehen von 0-9, wobei es die 0 in jeder Farbe nur einmal gibt und die Karten 1-9 in jeder Farbe 2
+        mal. Die Aktionskarten bestehen aus einer Aussetzen-Karte, einer Richtungswechsel-Karte und einer +2-Karte.
+        Diese gibt es jeweils auch 2 mal in jeder Farbe. Die schwarzen Sonderkarten bestehen aus einer Farbwechsel-Karte
+        & einer +4-Karte, beide Sonderkarten gibt es jeweils 4 mal. Die Funktionsweise der Aktions- & Sonderkarten wird
+        unten genauer erklärt.
+        <br/>
+    <center>
+        <img src=@routes.Assets.versioned("images/UNO_Logo.svg.png") align="center" width="200">
+    </center>
+    </p>
+
+    <h1>Spielregeln</h1>
+    <hr/>
+
+    <h3>Ziel des Spiels</h3>
+
+    <p>
+        Das Ziel des Spiels ist es, die eigenen Handkarten vollständig abzulegen, bevor ein anderer Spieler seine Karten
+        vollständig ablegen konnte. Das Spiel kann gegen 1, 2 oder 3 Gegner gespielt werden.
+    </p>
+
+    <h3>Zu Beginn des Spiels</h3>
+
+    <p>
+        Bei jedem neuen Spiel erhält jeder Spieler 7 zufällige Handkarten. Die verbleibenden Karten werden verdeckt in
+        die Mitte gelegt und bilden den Kartenstapel. Vom Kartenstapel wird die oberste Karte
+        aufgedeckt und daneben gelegt. Dieser Stapel bildet den Ablegestapel. Du beginnst jede Spielrunde.
+    </p>
+
+    <h3>Spielverlauf</h3>
+
+    <p>
+        Der erste Spiele legt eine Karte von seiner Hand auf den Ablagestapel. Dabei gilt: Eine Karte kann nur auf eine
+        Karte der gleichen Farbe oder der gleichen Zahl gelegt werden. Kann ein Spieler keine passende Karte legen, so
+        muss er eine
+        Strafkarte vom verdeckten Stapel ziehen. Diese Karte kann er sofort wieder ausspielen, sofern diese passt. Hat
+        er keine passende Karte ist der nächste Spieler an der Reihe. Die Runde gewinnt derjenige, welcher die letzte
+        Karte abgelegt hat.
+    </p>
+
+
+</div>
 }
