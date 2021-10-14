@@ -33,10 +33,29 @@
                     <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                 }
                 <table style="display: inline-block;">
-                @for(card <- 0 until 7) {
-                    <td>
-                        <img src=@routes.Assets.versioned("images/assets/Deck.png") width="90">
-                    </td>
+                @if(controller.getNumOfPlayers == 2 && player == 1 || controller.getNumOfPlayers == 3 && player == 2 || controller.getNumOfPlayers == 4 && player == 2) {
+                    @for(card <- 0 until controller.getLength(4)) {
+                        <td>
+                            @if(controller.getCardText(4, card).charAt(0).equals('B')) {
+                                <img src=@routes.Assets.versioned(s"images/assets/${"Blue_" + controller.getCardText(4, card).charAt(2)}.png") width="90">
+                            }
+                            @if(controller.getCardText(4, card).charAt(0).equals('R')) {
+                                <img src=@routes.Assets.versioned(s"images/assets/${"Red_" + controller.getCardText(4, card).charAt(2)}.png") width="90">
+                            }
+                            @if(controller.getCardText(4, card).charAt(0).equals('G')) {
+                                <img src=@routes.Assets.versioned(s"images/assets/${"Green_" + controller.getCardText(4, card).charAt(2)}.png") width="90">
+                            }
+                            @if(controller.getCardText(4, card).charAt(0).equals('Y')) {
+                                <img src=@routes.Assets.versioned(s"images/assets/${"Yellow_" + controller.getCardText(4, card).charAt(2)}.png") width="90">
+                                }
+                        </td>
+                    }
+                } else {
+                    @for(card <- 0 until 7) {
+                        <td>
+                            <img src=@routes.Assets.versioned("images/assets/Deck.png") width="90">
+                        </td>
+                    }
                 }
                 </table>
             }
