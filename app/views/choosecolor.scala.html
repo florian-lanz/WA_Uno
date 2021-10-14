@@ -1,0 +1,31 @@
+@(controller:de.htwg.se.uno.controller.controllerComponent.ControllerInterface)
+
+@main("Uno") {
+    <body background=@routes.Assets.versioned("images/assets/Table_2.png")>
+        <center>
+            <h1>Uno</h1>
+            <table>
+                <td>
+                    <a href=@{s"/setspecial/${controller.getHs2}/blue"}>
+                        <img src=@routes.Assets.versioned(s"images/assets/Blue.png") width="90" />
+                    </a>
+                </td>
+                <td>
+                    <a href=@{s"/setspecial/${controller.getHs2}/red"}>
+                        <img src=@routes.Assets.versioned(s"images/assets/Red.png") width="90" />
+                    </a>
+                </td>
+                <td>
+                    <a href=@{s"/setspecial/${controller.getHs2}/green"}>
+                        <img src=@routes.Assets.versioned(s"images/assets/Green.png") width="90" />
+                    </a>
+                </td>
+                <td>
+                    <a href=@{s"/setspecial/${controller.getHs2}/yellow"}>
+                        <img src=@routes.Assets.versioned(s"images/assets/Yellow.png") width="90" />
+                    </a>
+                </td>
+            </table>
+        </center>
+    </body>
+}
