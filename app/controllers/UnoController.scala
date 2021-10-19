@@ -50,7 +50,7 @@ class UnoController @Inject() (val controllerComponents: ControllerComponents) e
 
   def chooseColor(card: String): Action[AnyContent] = Action {
     controller.set(card)
-    Ok(views.html.choosecolor(controller))
+    Ok(print())
   }
 
   def get(): Action[AnyContent] = Action {

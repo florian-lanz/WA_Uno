@@ -141,6 +141,56 @@
         controller.controllerEvent("idle")
         }
     </h3>
+
+    @if(controller.controllerEvent("idle").equals("Wähle eine Farbe")) {
+        <table>
+            <td>
+            @if(controller.getHs2.charAt(2).equals('C')) {
+                <a href="@{s"/setspecial/${controller.getHs2}/blue"}">
+                    <img src=@routes.Assets.versioned(s"images/assets/Blue_C.png") width="90"/>
+                </a>
+            } else {
+                <a href="@{s"/setspecial/${controller.getHs2}/blue"}">
+                    <img src=@routes.Assets.versioned(s"images/assets/Blue_D.png") width="90"/>
+                </a>
+            }
+            </td>
+            <td>
+            @if(controller.getHs2.charAt(2).equals('C')) {
+                <a href="@{s"/setspecial/${controller.getHs2}/red"}">
+                    <img src=@routes.Assets.versioned(s"images/assets/Red_C.png") width="90"/>
+                </a>
+            } else {
+                <a href="@{s"/setspecial/${controller.getHs2}/red"}">
+                    <img src=@routes.Assets.versioned(s"images/assets/Red_D.png") width="90"/>
+                </a>
+            }
+            </td>
+            <td>
+            @if(controller.getHs2.charAt(2).equals('C')) {
+                <a href="@{s"/setspecial/${controller.getHs2}/green"}">
+                    <img src=@routes.Assets.versioned(s"images/assets/Green_C.png") width="90"/>
+                </a>
+            } else {
+                <a href="@{s"/setspecial/${controller.getHs2}/green"}">
+                    <img src=@routes.Assets.versioned(s"images/assets/Green_D.png") width="90"/>
+                </a>
+            }
+            </td>
+            <td>
+            @if(controller.getHs2.charAt(2).equals('C')) {
+                <a href="@{s"/setspecial/${controller.getHs2}/yellow"}">
+                    <img src=@routes.Assets.versioned(s"images/assets/Yellow_C.png") width="90"/>
+                </a>
+            } else {
+                <a href="@{s"/setspecial/${controller.getHs2}/yellow"}">
+                    <img src=@routes.Assets.versioned(s"images/assets/Yellow_D.png") width="90"/>
+                </a>
+            }
+            </td>
+        </table>
+    }
+
     @if(controller.controllerEvent("idle").equals("Glückwunsch, du hast gewonnen!") ||
     controller.controllerEvent("idle").equals("Du hast leider verloren")) {
     <table>
