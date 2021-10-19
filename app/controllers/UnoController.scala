@@ -48,6 +48,11 @@ class UnoController @Inject() (val controllerComponents: ControllerComponents) e
     Ok(print())
   }
 
+  def chooseColor(card: String): Action[AnyContent] = Action {
+    controller.set(card)
+    Ok(print())
+  }
+
   def get(): Action[AnyContent] = Action {
     controller.get()
     Ok(print())
@@ -83,9 +88,12 @@ class UnoController @Inject() (val controllerComponents: ControllerComponents) e
     Ok(print())
   }
 
-  def print(): String = {
-    s"Uno\n${controller.gameToString}\n\n${controller.controllerEvent("idle")}"
-    //views.html.index()
+  def print(): Html = {
+    views.html.uno(controller)
+  }
+
+  def about(): Action[AnyContent] = Action {
+    Ok(views.html.index())
   }
 
 }
