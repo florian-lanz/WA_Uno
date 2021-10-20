@@ -18,6 +18,7 @@ h1 {
 h3 {
     font-family: Comfortaa;
     color: #FFFFFF;
+    padding: 15px 15px 15px 15px;
 }
 
 h4 {
@@ -31,7 +32,7 @@ p {
     font-weight: normal;
     text-align: left;
     color: #FFFFFF;
-    padding: 15px 15px 15px 15px;
+    padding: 15px 30px 15px 30px;
 }
 
 hr {
