@@ -1,10 +1,21 @@
 @()
 
 @main("Uno") {
-<body background=@routes.Assets.versioned("images/assets/Table_2b.png")>
-<center>
+<head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Comfortaa">
+</head>
+<body>
+    <center>
+        <nav class="navMenu">
+            <a href="/">About</a>
+            <a href="/new/2">Game</a>
+            <div class="dot"></div>
+        </nav>
+    </center>
+    <div class="aboutPage">
+    <center>
     <h1>Uno</h1>
-    <hr color="Black"/>
+    <hr/>
     <p>
         Uno ist ein US-amerikanisches Kartenspiel, dessen primäres Ziel es ist,
         seine Karten vergleichbar mit Mau-Mau möglichst schnell abzulegen, wobei mit einem speziellen Blatt gespielt
@@ -29,7 +40,7 @@
     <a href="/new/2"><img src=@routes.Assets.versioned("images/UNO_Logo.svg.png") width="100"></a>
 
     <h1>Spielregeln</h1>
-    <hr color="Black"/>
+    <hr/>
 
     <h3>Ziel des Spiels</h3>
 
@@ -60,7 +71,7 @@
 
     <br><br>
     <h1>Aktions- & Spezialkarten</h1>
-    <hr color="Black"/>
+    <hr/>
 
     <h3>Aktionskarten</h3>
 
@@ -159,4 +170,6 @@
         </td>
     </tr>
 </table>
+</div>
+</body>
 }

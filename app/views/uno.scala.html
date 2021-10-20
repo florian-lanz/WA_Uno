@@ -1,8 +1,17 @@
 @(controller: de.htwg.se.uno.controller.controllerComponent.ControllerInterface)
 
 @main("Uno") {
-<body background=@routes.Assets.versioned("images/assets/Table_2b.png")>
+<head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Comfortaa">
+</head>
+<body>
 <center>
+    <nav class="navMenu">
+        <a href="/">About</a>
+        <a href="/new/2">Game</a>
+        <div class="dot"></div>
+    </nav>
+    <section class="gameBoard">
     <h1>Uno</h1>
     @if(!controller.controllerEvent("idle").equals("Glückwunsch, du hast gewonnen!") &&
     !controller.controllerEvent("idle").equals("Du hast leider verloren")) {
@@ -63,11 +72,11 @@
             <br><br><br>
             <center>
                 <div>
-                    <a href="/get"><img src=@routes.Assets.versioned("images/assets/Deck.png") width="90"></a>
+                    <a href="/get"><img class="cardClickable" src=@routes.Assets.versioned("images/assets/Deck.png") width="90"></a>
                     <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                    <a href="/dostep"><img src=@routes.Assets.versioned("images/assets/nextstep.png") width="90"></a>
+                    <a href="/dostep"><img class="cardClickable" src=@routes.Assets.versioned("images/assets/nextstep.png") width="90"></a>
                     <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                    <img src=@routes.Assets.versioned(s"images/assets/${controller.getCardText(3, 1).replace(' ',
+                    <img class="cardNotClickable" src=@routes.Assets.versioned(s"images/assets/${controller.getCardText(3, 1).replace(' ',
                     '_')}.png") width="90">
                 </div>
             </center>
@@ -97,14 +106,14 @@
                         <a href="@{
                                 s"/choosecolor/${controller.getCardText(4, card)}"
                         }">
-                        <img src=@routes.Assets.versioned(s"images/assets/${controller.getCardText(4, card).replace(' ',
+                        <img class="cardClickable" src=@routes.Assets.versioned(s"images/assets/${controller.getCardText(4, card).replace(' ',
                         '_')}.png") width="90">
                         </a>
                         } else {
                         <a href="@{
                                 s"/set/${controller.getCardText(4, card)}"
                         }">
-                        <img src=@routes.Assets.versioned(s"images/assets/${controller.getCardText(4, card).replace(' ',
+                        <img class="cardClickable" src=@routes.Assets.versioned(s"images/assets/${controller.getCardText(4, card).replace(' ',
                         '_')}.png") width="90">
                         </a>
                         }
@@ -114,13 +123,13 @@
                     @if(!(controller.getNumOfPlayers == 4 && player == 3)) {
                     @for(card <- 0 until controller.getLength(player)) {
                     <td>
-                        <img src=@routes.Assets.versioned("images/assets/Deck.png") width="90">
+                        <img class="cardNotClickable buzz-out-on-hover" src=@routes.Assets.versioned("images/assets/Deck.png") width="90">
                     </td>
                     }
                     } else {
                     @for(card <- 0 until controller.getLength(2)) {
                     <td>
-                        <img src=@routes.Assets.versioned("images/assets/Deck.png") width="90">
+                        <img class="cardNotClickable buzz-out-on-hover" src=@routes.Assets.versioned("images/assets/Deck.png") width="90">
                     </td>
                     }
                     }
@@ -136,55 +145,55 @@
     }
     }
     </table>
-    <h3>
+    <p class="gameText">
         @{
         controller.controllerEvent("idle")
         }
-    </h3>
+    </p>
 
     @if(controller.controllerEvent("idle").equals("Wähle eine Farbe")) {
         <table>
             <td>
             @if(controller.getHs2.charAt(2).equals('C')) {
                 <a href="@{s"/setspecial/${controller.getHs2}/blue"}">
-                    <img src=@routes.Assets.versioned(s"images/assets/Blue_C.png") width="90"/>
+                    <img class="cardClickable" src=@routes.Assets.versioned(s"images/assets/Blue_C.png") width="90"/>
                 </a>
             } else {
                 <a href="@{s"/setspecial/${controller.getHs2}/blue"}">
-                    <img src=@routes.Assets.versioned(s"images/assets/Blue_D.png") width="90"/>
+                    <img class="cardClickable" src=@routes.Assets.versioned(s"images/assets/Blue_D.png") width="90"/>
                 </a>
             }
             </td>
             <td>
             @if(controller.getHs2.charAt(2).equals('C')) {
                 <a href="@{s"/setspecial/${controller.getHs2}/red"}">
-                    <img src=@routes.Assets.versioned(s"images/assets/Red_C.png") width="90"/>
+                    <img class="cardClickable" src=@routes.Assets.versioned(s"images/assets/Red_C.png") width="90"/>
                 </a>
             } else {
                 <a href="@{s"/setspecial/${controller.getHs2}/red"}">
-                    <img src=@routes.Assets.versioned(s"images/assets/Red_D.png") width="90"/>
+                    <img class="cardClickable" src=@routes.Assets.versioned(s"images/assets/Red_D.png") width="90"/>
                 </a>
             }
             </td>
             <td>
             @if(controller.getHs2.charAt(2).equals('C')) {
                 <a href="@{s"/setspecial/${controller.getHs2}/green"}">
-                    <img src=@routes.Assets.versioned(s"images/assets/Green_C.png") width="90"/>
+                    <img class="cardClickable" src=@routes.Assets.versioned(s"images/assets/Green_C.png") width="90"/>
                 </a>
             } else {
                 <a href="@{s"/setspecial/${controller.getHs2}/green"}">
-                    <img src=@routes.Assets.versioned(s"images/assets/Green_D.png") width="90"/>
+                    <img class="cardClickable" src=@routes.Assets.versioned(s"images/assets/Green_D.png") width="90"/>
                 </a>
             }
             </td>
             <td>
             @if(controller.getHs2.charAt(2).equals('C')) {
                 <a href="@{s"/setspecial/${controller.getHs2}/yellow"}">
-                    <img src=@routes.Assets.versioned(s"images/assets/Yellow_C.png") width="90"/>
+                    <img class="cardClickable" src=@routes.Assets.versioned(s"images/assets/Yellow_C.png") width="90"/>
                 </a>
             } else {
                 <a href="@{s"/setspecial/${controller.getHs2}/yellow"}">
-                    <img src=@routes.Assets.versioned(s"images/assets/Yellow_D.png") width="90"/>
+                    <img class="cardClickable" src=@routes.Assets.versioned(s"images/assets/Yellow_D.png") width="90"/>
                 </a>
             }
             </td>
@@ -213,6 +222,7 @@
         </tr>
     </table>
     }
+    </section>
 </center>
 </body>
 }
