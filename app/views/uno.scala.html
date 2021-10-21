@@ -8,9 +8,19 @@
 <body>
 <center>
     <nav class="navMenu">
-        <a href="/">About</a>
-        <a href="/new/2">Game</a>
-        <div class="dot"></div>
+        <div class="dropdown">
+            <a class="ref" href="/">About</a>
+            <div class="dot"></div>
+        </div>
+        <div class="dropdown">
+            <button class="link">Game</button>
+            <div class="dot"></div>
+            <div class="dropdown-menu">
+                <a href="/new/2">2 Players</a>
+                <a href="/new/3">3 Players</a>
+                <a href="/new/4">4 Players</a>
+            </div>
+        </div>
     </nav>
     <div class="container">
         <div class="box"></div>
@@ -27,30 +37,6 @@
         </div>
     </div>
     <section class="gameBoard">
-    @if(!controller.controllerEvent("idle").equals("Glückwunsch, du hast gewonnen!") &&
-    !controller.controllerEvent("idle").equals("Du hast leider verloren")) {
-        <table>
-            <tr>
-                <td>
-                    <form action="/new/2">
-                        <input type="submit" value="New Game: 2 Players"/>
-                    </form>
-                </td>
-                <td>
-                    <form action="/new/3">
-                        <input type="submit" value="New Game: 3 Players"/>
-                    </form>
-                </td>
-                <td>
-                    <form action="/new/4">
-                        <input type="submit" value="New Game: 4 Players"/>
-                    </form>
-                </td>
-            </tr>
-        </table>
-    }
-
-    <br>
     @for(player <- 0 until controller.getNumOfPlayers) {
 
     @if(player % 2 == 0 && player != 0 || controller.getNumOfPlayers == 2 && player == 1) {

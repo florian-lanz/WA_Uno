@@ -58,7 +58,7 @@ form {
 }
 
 .gameBoard {
-    padding: 30px 50px 50px 50px;
+    padding: 25px 50px 50px 50px;
 }
 
 .aboutPage {
@@ -99,7 +99,7 @@ form {
 }
 
 .iconMenu {
-    padding: 85px 30px 0px 0px;
+    padding: 25px 30px 0px 0px;
 }
 
 .iconMenu i {
@@ -115,7 +115,7 @@ form {
 }
 
 .unoHeading {
-    padding: 85px 0px 0px 0px;
+    padding: 25px 0px 0px 0px;
 }
 
 @keyframes shake {
@@ -136,10 +136,11 @@ form {
     list-style-type: none;
     overflow: hidden;
     background-color: #6593A6;
-    position: fixed;
     top: 0;
     width: 100%;
     padding: 15px 15px 15px 15px;
+    position: relative;
+    display: flex;
 }
 
 .navMenu a {
@@ -154,34 +155,94 @@ form {
     transition: all 0.2s ease-in-out;
 }
 
-.navMenu a:hover {
-    color: #333333;
+.navMenu button {
+    color: #FFFFFF;
+    background-color: #6593A6;
+    border: none;
+    text-decoration: none;
+    font-size: 16px;
+    font-family: Comfortaa;
+    font-weight: bold;
+    display: inline-block;
+    width: 80px;
+    -webkit-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
 }
 
-.navMenu .dot {
+.navMenu a:hover {
+    color: #333333;
+    position: relative;
+}
+
+.navMenu button:hover {
+    color: #333333;
+    cursor:pointer;
+}
+
+.dropdown .dot {
     width: 6px;
     height: 6px;
     background: #333333;
     border-radius: 50%;
     opacity: 0;
+    position: absolute;
+    top: 18px;
     -webkit-transform: translateX(0px);
     transform: translateX(0px);
     -webkit-transition: all 0.2s ease-in-out;
     transition: all 0.2s ease-in-out;
 }
 
-.navMenu a:nth-child(1):hover ~ .dot {
-    -webkit-transform: translateX(-40px);
-    transform: translateX(-40px);
+.dropdown > .ref:hover + .dot {
+    -webkit-transform: translateX(-35px);
+    transform: translateX(-35px);
     -webkit-transition: all 0.2s ease-in-out;
     transition: all 0.2s ease-in-out;
     opacity: 1;
 }
 
-.navMenu a:nth-child(2):hover ~ .dot {
-    -webkit-transform: translateX(45px);
-    transform: translateX(45px);
+.dropdown > .link:hover + .dot {
+    -webkit-transform: translateX(40px);
+    transform: translateX(40px);
     -webkit-transition: all 0.2s ease-in-out;
     transition: all 0.2s ease-in-out;
     opacity: 1;
+}
+
+.dropdown-menu {
+    position: absolute;
+    left: 150px;
+    opacity: 0;
+    transform: translateX(-50px);
+    transition: opacity 250ms ease-in-out, transform 250ms ease-in-out;
+}
+
+.dropdown-menu a {
+    padding: 0 20px 0 0;
+    box-sizing: content-box;
+}
+
+.dropdown > .link:focus ~ .dropdown-menu {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.dropdown > .link:hover ~ .dropdown-menu {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.dropdown {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.dropdown:first-child  {
+    justify-content: right;
+}
+
+.dropdown:nth-child(2)  {
+    justify-content: left;
 }
