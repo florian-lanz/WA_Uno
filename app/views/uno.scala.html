@@ -163,15 +163,11 @@
                 } else {
                     @if(!(controller.getNumOfPlayers == 4 && player == 3)) {
                         @for(card <- 0 until controller.getLength(player)) {
-                            <td>
-                                <img class="cardNotClickable buzz-out-on-hover" src=@routes.Assets.versioned("images/assets/Deck.png") width="90">
-                            </td>
+                            <img class="cardNotClickable buzz-out-on-hover" src=@routes.Assets.versioned("images/assets/Deck.png") width="90">
                         }
                     } else {
                         @for(card <- 0 until controller.getLength(2)) {
-                            <td>
-                                <img class="cardNotClickable buzz-out-on-hover" src=@routes.Assets.versioned("images/assets/Deck.png") width="90">
-                            </td>
+                            <img class="cardNotClickable buzz-out-on-hover" src=@routes.Assets.versioned("images/assets/Deck.png") width="90">
                         }
                     }
                     </div>
