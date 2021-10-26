@@ -9,7 +9,7 @@
     <nav class="navbar navbar-expand-md navbar-custom">
         <div class="container">
             <a href="/" class="navbar-brand navbar-text">
-                <img src="@routes.Assets.versioned(s"images/UNO_Logo.svg.png")" id="navbar-logo" width="50" alt="Logo"/>
+                <img src="@routes.Assets.versioned(s"images/Uno_Logo.png")" id="navbar-logo" width="50" alt="Logo"/>
             </a>
             <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -93,94 +93,75 @@
 
         <h3 class="text-center">Aktionskarten</h3>
 
-        <table>
-            <tr>
-                <td>
-                    <img src="@routes.Assets.versioned("images/assets/R+2.png")" class="img-fluid float-start" width="100">
-                </td>
-                <td>
-                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                </td>
-                <td>
-                    <h4>Zieh Zwei Karten</h4>
-                    <p>
-                        Wenn diese Karte gelegt wird, muss der nächste Spieler 2 Karten ziehen und darf
-                        in dieser Runde keine Karten ablegen. Diese Karte kann nur auf eine Karte mit entsprechender
-                        Farbe oder andere Zieh Zwei Karten gelegt werden.
-                    </p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <img src=@routes.Assets.versioned("images/assets/R_D.png") width="100">
-                </td>
-                <td>
-                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                </td>
-                <td>
-                    <h4>Richtungswechsel Karte</h4>
-                    <p>
-                        Bei dieser Karte ändert sich die Spielrichtung. Wenn bisher nach links gespielt wurde, wird nun nach
-                        rechts gespielt und umgekehrt. Die Karte kann nur auf eine entsprechende Farbe oder eine andere
-                        Retour Karte gelegt werden.
-                    </p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <img src=@routes.Assets.versioned("images/assets/R_S.png") width="100">
-                </td>
-                <td>
-                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                </td>
-                <td>
-                    <h4>Aussetzen Karte</h4>
-                    <p>
-                        Nachdem diese Karte gelegt wurde, wird der nächste Spieler „übersprungen“. Die Karte kann nur
-                        auf eine andere mit entsprechender Farbe oder eine andere Aussetzen Karte gelegt werden.
-                    </p>
-                </td>
-            </tr>
-        </table>
+        <div class="row">
+            <div class="col-md-2 col-sm-12 my-auto">
+                <img src="@routes.Assets.versioned("images/assets/R+2.png")" class="mx-auto d-block" width="100">
+            </div>
+            <div class="col-md-10 col-sm-12 text-justify text-md-left">
+                <h4>Zieh Zwei Karten</h4>
+                <p>
+                    Wenn diese Karte gelegt wird, muss der nächste Spieler 2 Karten ziehen und darf
+                    in dieser Runde keine Karten ablegen. Diese Karte kann nur auf eine Karte mit entsprechender
+                    Farbe oder andere Zieh Zwei Karten gelegt werden.
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2 col-sm-12 my-auto">
+                <img src="@routes.Assets.versioned("images/assets/R_D.png")" class="mx-auto d-block" width="100">
+            </div>
+            <div class="col-md-10 col-sm-12 text-justify text-md-left">
+                <h4>Richtungswechsel Karte</h4>
+                <p>
+                    Bei dieser Karte ändert sich die Spielrichtung. Wenn bisher nach links gespielt wurde, wird nun nach
+                    rechts gespielt und umgekehrt. Die Karte kann nur auf eine entsprechende Farbe oder eine andere
+                    Retour Karte gelegt werden.
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2 col-sm-12 my-auto">
+                <img src="@routes.Assets.versioned("images/assets/R_S.png")" class="mx-auto d-block" width="100">
+            </div>
+            <div class="col-md-10 col-sm-12 text-justify text-md-left">
+                <h4>Aussetzen Karte</h4>
+                <p>
+                    Nachdem diese Karte gelegt wurde, wird der nächste Spieler „übersprungen“. Die Karte kann nur
+                    auf eine andere mit entsprechender Farbe oder eine andere Aussetzen Karte gelegt werden.
+                </p>
+            </div>
+        </div>
         <h3 class="text-center">Spezialkarten</h3>
-        <table>
-            <tr>
-                <td>
-                    <img src=@routes.Assets.versioned("images/assets/S_C.png") width="100">
-                </td>
-                <td>
-                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                </td>
-                <td>
-                    <h4>Farbauswahlkarte</h4>
-                    <p>
-                        Der Spieler, der diese Karte legt, entscheidet welche Farbe als nächstes gelegt werden soll. Auch
-                        die schon liegende Farbe darf gewählt werden. Ein Farbenwahl Karte darf auch dann gelegt werden,
-                        wenn der Spieler eine andere Karte legen könnte. Wenn eine Farbenwahl Karte zu Beginn des Spiels
-                        gezogen wird, entscheidet der beginnende Spieler, welche Farbe als nächstes gelegt werden soll.
-                    </p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <img src=@routes.Assets.versioned("images/assets/S+4.png") width="100">
-                </td>
-                <td>
-                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                </td>
-                <td>
-                    <h4>Zieh Vier Farbauswahlkarte</h4>
-                    <p>
-                        Diese Karte ist die beste. Der Spieler, der sie legt, entscheidet, welche Farbe als nächstes gelegt
-                        werden soll. Zudem muss der nächste Spieler 4 Karten von dem Kartenstapel nehmen. Er darf in
-                        dieser Runde keine Karte ablegen. Leider darf die Karte nur dann gelegt werden, wenn der Spieler der
-                        sie hat, keine Karte in der Hand hält, die der Farbe auf dem Ablegestapel entspricht. Hat der
-                        Spieler eine Karte mit der entsprechenden Nummer oder Aktionskarten, kann die Zieh Vier
-                        Farbauswahlkarte dennoch gelegt werden.
-                    </p>
-                </td>
-            </tr>
-        </table>
+        <div class="row">
+            <div class="col-md-2 col-sm-12 my-auto">
+                <img src="@routes.Assets.versioned("images/assets/S_C.png")" class="mx-auto d-block" width="100">
+            </div>
+            <div class="col-md-10 col-sm-12 text-justify text-md-left">
+                <h4>Farbauswahlkarte</h4>
+                <p>
+                    Der Spieler, der diese Karte legt, entscheidet welche Farbe als nächstes gelegt werden soll. Auch
+                    die schon liegende Farbe darf gewählt werden. Ein Farbenwahl Karte darf auch dann gelegt werden,
+                    wenn der Spieler eine andere Karte legen könnte. Wenn eine Farbenwahl Karte zu Beginn des Spiels
+                    gezogen wird, entscheidet der beginnende Spieler, welche Farbe als nächstes gelegt werden soll.
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2 col-sm-12 my-auto">
+                <img src="@routes.Assets.versioned("images/assets/S+4.png")" class="mx-auto d-block" width="100">
+            </div>
+            <div class="col-md-10 col-sm-12 text-justify text-md-left">
+                <h4>Zieh Vier Farbauswahlkarte</h4>
+                <p>
+                    Diese Karte ist die beste. Der Spieler, der sie legt, entscheidet, welche Farbe als nächstes gelegt
+                    werden soll. Zudem muss der nächste Spieler 4 Karten von dem Kartenstapel nehmen. Er darf in
+                    dieser Runde keine Karte ablegen. Leider darf die Karte nur dann gelegt werden, wenn der Spieler der
+                    sie hat, keine Karte in der Hand hält, die der Farbe auf dem Ablegestapel entspricht. Hat der
+                    Spieler eine Karte mit der entsprechenden Nummer oder Aktionskarten, kann die Zieh Vier
+                    Farbauswahlkarte dennoch gelegt werden.
+                </p>
+            </div>
+        </div>
     </div>
     <script src="@routes.Assets.versioned("javascripts/bootstrap.min.js")" ></script>
 </body>
