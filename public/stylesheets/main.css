@@ -31,7 +31,15 @@ h4 {
     h4 {
         text-align: center;
     }
+    p {
+        padding-bottom: 60px;
+    }
+}
 
+@media (min-width: 769px) {
+    p {
+        padding-bottom: 15px;
+    }
 }
 
 p {
@@ -40,7 +48,9 @@ p {
     font-weight: normal;
     text-align: justify;
     color: #FFFFFF;
-    padding: 15px 30px 15px 30px;
+    padding-top: 15px;
+    padding-left: 30px;
+    padding-right: 30px;
 }
 
 hr {
@@ -62,11 +72,8 @@ input:hover {
 }
 
 form {
+    display: inline-block;
     padding: 0px 5px 0px 5px;
-}
-
-.gameBoard {
-    padding: 25px 50px 50px 50px;
 }
 
 .aboutPage {
@@ -107,7 +114,7 @@ form {
 }
 
 .iconMenu {
-    padding: 25px 30px 0px 0px;
+    padding: 25px 0px 0px 0px;
 }
 
 .iconMenu i {
@@ -245,4 +252,12 @@ form {
     border-radius: 20px;
     font-family: Comfortaa !important;
     font-weight: bold;
+}
+
+.row-padding {
+    padding-top: 30px;
+}
+
+a {
+    text-decoration: none;
 }

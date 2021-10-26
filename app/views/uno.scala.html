@@ -1,216 +1,212 @@
 @(controller: de.htwg.se.uno.controller.controllerComponent.ControllerInterface)
 
 @main("Uno") {
-<head>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Comfortaa">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
-    <link rel="stylesheet" href="@routes.Assets.versioned("stylesheets/bootstrap.min.css")" >
-</head>
-<body>
-
-    <nav class="navbar navbar-expand-md navbar-custom">
-        <div class="container">
-            <a href="/" class="navbar-brand navbar-text">
-                <img src="@routes.Assets.versioned(s"images/Uno_Logo.png")" id="navbar-logo" width="50" alt="Logo"/>
-            </a>
-            <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                    <li class="nav-item">
-                        <a class="nav-link navbar-text" href="/">About</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle navbar-text" href="/new/2" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Game
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="/new/2">2 Players</a></li>
-                            <li><a class="dropdown-item" href="/new/3">3 Players</a></li>
-                            <li><a class="dropdown-item" href="/new/4">4 Players</a></li>
-                        </ul>
-                    </li>
-                </ul>
+    <head>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Comfortaa">
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+        <link rel="stylesheet" href="@routes.Assets.versioned("stylesheets/bootstrap.min.css")" >
+    </head>
+    <div>
+        <nav class="navbar navbar-expand-md navbar-custom">
+            <div class="container">
+                <a href="/" class="navbar-brand navbar-text">
+                    <img src="@routes.Assets.versioned(s"images/Uno_Logo.png")" id="navbar-logo" width="50" alt="Logo"/>
+                </a>
+                <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                        <li class="nav-item">
+                            <a class="nav-link navbar-text" href="/">About</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle navbar-text" href="/new/2" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Game
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="/new/2">2 Players</a></li>
+                                <li><a class="dropdown-item" href="/new/3">3 Players</a></li>
+                                <li><a class="dropdown-item" href="/new/4">4 Players</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="row">
+            <div class="col-md-5 col-sm-12 text-center"></div>
+            <div class="col-md-2 col-sm-12 text-center">
+                <h1 class="unoHeading">Uno</h1>
+            </div>
+            <div class="col-md-5 col-sm-12 text-center">
+                <div class="iconMenu">
+                    <a href="/undo"><i class="fas fa-undo-alt"></i></a>
+                    <a href="/redo"><i class="fas fa-redo-alt"></i></a>
+                    <a href="/save"><i class="fas fa-save"></i></a>
+                    <a href="/load"><i class="fas fa-file-upload"></i></a>
+                </div>
             </div>
         </div>
-    </nav>
-    <div class="container">
-        <div class="box"></div>
-        <div class="box">
-            <h1 class="unoHeading">Uno</h1>
-        </div>
-        <div class="box">
-            <div class="iconMenu">
-                <a href="/undo"><i class="fas fa-undo-alt"></i></a>
-                <a href="/redo"><i class="fas fa-redo-alt"></i></a>
-                <a href="/save"><i class="fas fa-save"></i></a>
-                <a href="/load"><i class="fas fa-file-upload"></i></a>
-            </div>
-        </div>
-    </div>
-    <center>
-    <section class="gameBoard">
-    @for(player <- 0 until controller.getNumOfPlayers) {
-
-    @if(player % 2 == 0 && player != 0 || controller.getNumOfPlayers == 2 && player == 1) {
-    <tr>
-        <td>
-            <br><br><br>
-            <center>
-                @if(controller.controllerEvent("idle").equals("Wähle eine Farbe")) {
-                    <table>
-                        <td>
-                        @if(controller.getHs2.charAt(2).equals('C')) {
-                            <a href="@{s"/setspecial/${controller.getHs2}/blue"}">
-                                <img class="cardClickable" src=@routes.Assets.versioned(s"images/assets/Blue_C.png") width="90"/>
-                            </a>
-                        } else {
-                            <a href="@{s"/setspecial/${controller.getHs2}/blue"}">
-                                <img class="cardClickable" src=@routes.Assets.versioned(s"images/assets/Blue_D.png") width="90"/>
-                            </a>
+            @for(player <- 0 until controller.getNumOfPlayers) {
+                @if(player % 2 == 0 || (controller.getNumOfPlayers == 2 && player == 1)) {
+                    <div class="row row-padding">
+                        @if(controller.getNumOfPlayers == 2 && player == 1 || controller.getNumOfPlayers != 2 && player == 2) {
+                            @if(controller.controllerEvent("idle").equals("Wähle eine Farbe")) {
+                                <div class="col-md-12 text-center">
+                                @if(controller.getHs2.charAt(2).equals('C')) {
+                                    <a href="@{
+                                        s"/setspecial/${controller.getHs2}/blue"
+                                    }">
+                                        <img class="cardClickable" src="@routes.Assets.versioned(s"images/assets/Blue_C.png")" width="90"/>
+                                    </a>
+                                } else {
+                                    <a href="@{
+                                        s"/setspecial/${controller.getHs2}/blue"
+                                    }">
+                                        <img class="cardClickable" src="@routes.Assets.versioned(s"images/assets/Blue_D.png")" width="90"/>
+                                    </a>
+                                }
+                                @if(controller.getHs2.charAt(2).equals('C')) {
+                                    <a href="@{
+                                        s"/setspecial/${controller.getHs2}/red"
+                                    }">
+                                        <img class="cardClickable" src="@routes.Assets.versioned(s"images/assets/Red_C.png")" width="90"/>
+                                    </a>
+                                } else {
+                                    <a href="@{
+                                        s"/setspecial/${controller.getHs2}/red"
+                                    }">
+                                        <img class="cardClickable" src="@routes.Assets.versioned(s"images/assets/Red_D.png")" width="90"/>
+                                    </a>
+                                }
+                                @if(controller.getHs2.charAt(2).equals('C')) {
+                                    <a href="@{
+                                        s"/setspecial/${controller.getHs2}/green"
+                                    }">
+                                        <img class="cardClickable" src=@routes.Assets.versioned(s"images/assets/Green_C.png") width="90"/>
+                                    </a>
+                                } else {
+                                    <a href="@{
+                                        s"/setspecial/${controller.getHs2}/green"
+                                    }">
+                                        <img class="cardClickable" src=@routes.Assets.versioned(s"images/assets/Green_D.png") width="90"/>
+                                    </a>
+                                }
+                                @if(controller.getHs2.charAt(2).equals('C')) {
+                                    <a href="@{
+                                        s"/setspecial/${controller.getHs2}/yellow"
+                                    }">
+                                        <img class="cardClickable" src=@routes.Assets.versioned(s"images/assets/Yellow_C.png") width="90"/>
+                                    </a>
+                                } else {
+                                    <a href="@{
+                                        s"/setspecial/${controller.getHs2}/yellow"
+                                    }">
+                                        <img class="cardClickable" src=@routes.Assets.versioned(s"images/assets/Yellow_D.png") width="90"/>
+                                    </a>
+                                }
+                                </div>
+                            } else {
+                                <div class="col-md-5 text-end">
+                                    <a href="/get"><img class="cardClickable" src=@routes.Assets.versioned("images/assets/Deck.png") width="90"></a>
+                                </div>
+                                <div class="col-md-2 text-center">
+                                    <a href="/dostep"><img class="cardClickable" src=@routes.Assets.versioned("images/assets/nextstep.png") width="90"></a>
+                                </div>
+                                <div class="col-md-5 text-start">
+                                    <img class="cardNotClickable" src=@routes.Assets.versioned(s"images/assets/${
+                                        controller.getCardText(3, 1).replace(' ',
+                                            '_')
+                                    }.png") width="90">
+                                </div>
+                            }
+                        </div>
+                        <div class="row row-padding">
                         }
-                        </td>
-                        <td>
-                        @if(controller.getHs2.charAt(2).equals('C')) {
-                            <a href="@{s"/setspecial/${controller.getHs2}/red"}">
-                                <img class="cardClickable" src=@routes.Assets.versioned(s"images/assets/Red_C.png") width="90"/>
-                            </a>
+                    }
+                    @if((player - 1) % 2 == 0 && controller.getNumOfPlayers != 2) {
+                        <div class="col-md-6 text-start">
+                    } else {
+                        @if(controller.getNumOfPlayers == 2 || controller.getNumOfPlayers == 3 && player == 2) {
+                            <div class="col-md-12 text-center">
                         } else {
-                            <a href="@{s"/setspecial/${controller.getHs2}/red"}">
-                                <img class="cardClickable" src=@routes.Assets.versioned(s"images/assets/Red_D.png") width="90"/>
-                            </a>
+                            <div class="col-md-6 text-end">
                         }
-                        </td>
-                        <td>
-                        @if(controller.getHs2.charAt(2).equals('C')) {
-                            <a href="@{s"/setspecial/${controller.getHs2}/green"}">
-                                <img class="cardClickable" src=@routes.Assets.versioned(s"images/assets/Green_C.png") width="90"/>
-                            </a>
-                        } else {
-                            <a href="@{s"/setspecial/${controller.getHs2}/green"}">
-                                <img class="cardClickable" src=@routes.Assets.versioned(s"images/assets/Green_D.png") width="90"/>
-                            </a>
-                        }
-                        </td>
-                        <td>
-                        @if(controller.getHs2.charAt(2).equals('C')) {
-                            <a href="@{s"/setspecial/${controller.getHs2}/yellow"}">
-                                <img class="cardClickable" src=@routes.Assets.versioned(s"images/assets/Yellow_C.png") width="90"/>
-                            </a>
-                        } else {
-                            <a href="@{s"/setspecial/${controller.getHs2}/yellow"}">
-                                <img class="cardClickable" src=@routes.Assets.versioned(s"images/assets/Yellow_D.png") width="90"/>
-                            </a>
-                        }
-                        </td>
-                    </table>
-                } else {
-                    <div>
-                        <a href="/get"><img class="cardClickable" src=@routes.Assets.versioned("images/assets/Deck.png") width="90"></a>
-                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                        <a href="/dostep"><img class="cardClickable" src=@routes.Assets.versioned("images/assets/nextstep.png") width="90"></a>
-                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                        <img class="cardNotClickable" src=@routes.Assets.versioned(s"images/assets/${controller.getCardText(3, 1).replace(' ',
-                        '_')}.png") width="90">
-                    </div>
-                }
-            </center>
-            <br><br><br>
-        </td>
-    </tr>
-    }
-    @if((player - 1) % 2 == 0 && controller.getNumOfPlayers != 2) {
-    <td>
-        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-    </td>
-    }
-    @if(controller.getNumOfPlayers == 2 || (controller.getNumOfPlayers == 3 || controller.getNumOfPlayers == 4) &&
-    player % 2 == 0) {
-    <table>
-        <tr>
-            <td>
-                } else {
-            <td>
-                }
-                <table>
+                    }
                     @if(controller.getNumOfPlayers == 2 && player == 1 || controller.getNumOfPlayers == 3 && player == 2
                     || controller.getNumOfPlayers == 4 && player == 2) {
-                    @for(card <- 0 until controller.getLength(4)) {
-                    <td>
-                        @if(controller.getCardText(4, card).charAt(0).equals('S')) {
-                        <a href="@{
-                                s"/choosecolor/${controller.getCardText(4, card)}"
-                        }">
-                        <img class="cardClickable" src=@routes.Assets.versioned(s"images/assets/${controller.getCardText(4, card).replace(' ',
-                        '_')}.png") width="90">
-                        </a>
-                        } else {
-                        <a href="@{
-                                s"/set/${controller.getCardText(4, card)}"
-                        }">
-                        <img class="cardClickable" src=@routes.Assets.versioned(s"images/assets/${controller.getCardText(4, card).replace(' ',
-                        '_')}.png") width="90">
-                        </a>
-                        }
-                    </td>
-                    }
-                    } else {
-                    @if(!(controller.getNumOfPlayers == 4 && player == 3)) {
-                    @for(card <- 0 until controller.getLength(player)) {
-                    <td>
-                        <img class="cardNotClickable buzz-out-on-hover" src=@routes.Assets.versioned("images/assets/Deck.png") width="90">
-                    </td>
-                    }
-                    } else {
-                    @for(card <- 0 until controller.getLength(2)) {
-                    <td>
-                        <img class="cardNotClickable buzz-out-on-hover" src=@routes.Assets.versioned("images/assets/Deck.png") width="90">
-                    </td>
-                    }
-                    }
-                    }
-                </table>
-                @if(controller.getNumOfPlayers == 2 || (controller.getNumOfPlayers == 3 || controller.getNumOfPlayers ==
-                4) && (player + 1) % 2 == 0) {
-            </td>
-        </tr>
-    </table>
-    } else {
-    </td>
-    }
-    }
-    </table>
-    <p class="gameText">
-        @{
-        controller.controllerEvent("idle")
-        }
-    </p>
+                        @for(card <- 0 until controller.getLength(4)) {
 
-    @if(controller.controllerEvent("idle").equals("Glückwunsch, du hast gewonnen!") ||
-    controller.controllerEvent("idle").equals("Du hast leider verloren")) {
-    <table>
-        <tr>
-            <td>
-                <form action="/new/2">
-                    <input type="submit" class="btn-new-game" value="New Game: 2 Players"/>
-                </form>
-            </td>
-            <td>
-                <form action="/new/3">
-                    <input type="submit" class="btn-new-game" value="New Game: 3 Players"/>
-                </form>
-            </td>
-            <td>
-                <form action="/new/4">
-                    <input type="submit" class="btn-new-game" value="New Game: 4 Players"/>
-                </form>
-            </td>
-        </tr>
-    </table>
-    }
-    </section>
-</center>
-    <script src="@routes.Assets.versioned("javascripts/bootstrap.min.js")" ></script>
-</body>
+                            @if(controller.getCardText(4, card).charAt(0).equals('S')) {
+                                <a href="@{
+                                    s"/choosecolor/${controller.getCardText(4, card)}"
+                                }">
+                                    <img class="cardClickable" src=@routes.Assets.versioned(s"images/assets/${
+                                        controller.getCardText(4, card).replace(' ',
+                                            '_')
+                                    }.png") width="90">
+                                </a>
+                            } else {
+                                <a href="@{
+                                    s"/set/${controller.getCardText(4, card)}"
+                                }">
+                                    <img class="cardClickable" src=@routes.Assets.versioned(s"images/assets/${
+                                        controller.getCardText(4, card).replace(' ',
+                                            '_')
+                                    }.png") width="90">
+                                </a>
+                            }
+
+                    }
+                    </div>
+                } else {
+                    @if(!(controller.getNumOfPlayers == 4 && player == 3)) {
+                        @for(card <- 0 until controller.getLength(player)) {
+                            <td>
+                                <img class="cardNotClickable buzz-out-on-hover" src=@routes.Assets.versioned("images/assets/Deck.png") width="90">
+                            </td>
+                        }
+                    } else {
+                        @for(card <- 0 until controller.getLength(2)) {
+                            <td>
+                                <img class="cardNotClickable buzz-out-on-hover" src=@routes.Assets.versioned("images/assets/Deck.png") width="90">
+                            </td>
+                        }
+                    }
+                    </div>
+                }
+                @if(controller.getNumOfPlayers == 2 && player != 1 || (controller.getNumOfPlayers != 2 && (player == 1 || player == controller.getNumOfPlayers - 1))) {
+                    <br><br><br>
+                    </div>
+                }
+            }
+        </div>
+        <p class="gameText">
+        @{
+            controller.controllerEvent("idle")
+        }
+        </p>
+
+            @if(controller.controllerEvent("idle").equals("Glückwunsch, du hast gewonnen!") ||
+                    controller.controllerEvent("idle").equals("Du hast leider verloren")) {
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <form action="/new/2">
+                            <input type="submit" class="btn-new-game" value="New Game: 2 Players"/>
+                        </form>
+                        <form action="/new/3">
+                            <input type="submit" class="btn-new-game" value="New Game: 3 Players"/>
+                        </form>
+                        <form action="/new/4">
+                            <input type="submit" class="btn-new-game" value="New Game: 4 Players"/>
+                        </form>
+                    </div>
+                </div>
+            }
+        </section>
+        </center>
+            <script src="@routes.Assets.versioned("javascripts/bootstrap.min.js")" ></script>
+    </body>
+    </div>
 }
