@@ -270,8 +270,27 @@ form {
     font-weight: bold;
 }
 
-.row-padding {
-    padding-top: 30px;
+.col-padding {
+    padding-top: 50px;
+}
+
+.stacks-padding {
+    padding-right: 25px;
+    padding-left: 25px;
+    box-sizing: content-box;
+}
+
+.card-padding {
+     padding-right: 25px !important;
+     padding-left: 25px !important;
+ }
+
+.cardClickable {
+    padding-top: 5px;
+}
+
+.cardNotClickable {
+    padding-top: 5px;
 }
 
 .clickable-card-link {
