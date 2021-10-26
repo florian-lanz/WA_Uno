@@ -27,6 +27,15 @@ h4 {
     padding-top: 30px;
 }
 
+.btn-new-game {
+    padding: 10px 15px 10px 15px;
+    margin: 0 5px 0 5px;
+    border: none;
+    border-radius: 20px;
+    font-family: Comfortaa !important;
+    font-weight: bold;
+}
+
 @media (max-width: 767px) {
     h4 {
         text-align: center;
@@ -39,6 +48,23 @@ h4 {
     }
     .cardNotClickable {
         width: 5%;
+    }
+    .btn-new-game {
+        margin: 5px 150px;
+    }
+}
+
+@media (max-width: 550px) {
+    .btn-new-game {
+        margin-left: 50px;
+        margin-right: 50px;
+    }
+}
+
+@media (max-width: 442px) {
+    .btn-new-game {
+        margin-left: 0px;
+        margin-right: 0px;
     }
 }
 
@@ -265,15 +291,6 @@ form {
 .dropdown-menu.show > li > a:hover {
     color:  #333333;
     background-color: #6593A6;
-}
-
-.btn-new-game {
-    padding: 10px 15px 10px 15px;
-    margin: 0 5px 0 5px;
-    border: none;
-    border-radius: 20px;
-    font-family: Comfortaa !important;
-    font-weight: bold;
 }
 
 .col-padding {
