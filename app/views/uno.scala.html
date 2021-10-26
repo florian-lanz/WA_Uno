@@ -4,21 +4,34 @@
 <head>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Comfortaa">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+    <link rel="stylesheet" href="@routes.Assets.versioned("stylesheets/bootstrap.min.css")" >
 </head>
 <body>
-<center>
-    <nav class="navMenu">
-        <div class="dropdown">
-            <a class="ref" href="/">About</a>
-            <div class="dot"></div>
-        </div>
-        <div class="dropdown">
-            <button class="link">Game</button>
-            <div class="dot"></div>
-            <div class="dropdown-menu">
-                <a href="/new/2">2 Players</a>
-                <a href="/new/3">3 Players</a>
-                <a href="/new/4">4 Players</a>
+
+    <nav class="navbar navbar-expand-md navbar-custom">
+        <div class="container">
+            <a href="/" class="navbar-brand navbar-text">
+                <img src="@routes.Assets.versioned(s"images/UNO_Logo.svg.png")" id="navbar-logo" width="50" alt="Logo"/>
+            </a>
+            <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                    <li class="nav-item">
+                        <a class="nav-link navbar-text" href="/">About</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle navbar-text" href="/new/2" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Game
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="/new/2">2 Players</a></li>
+                            <li><a class="dropdown-item" href="/new/3">3 Players</a></li>
+                            <li><a class="dropdown-item" href="/new/4">4 Players</a></li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>
@@ -36,6 +49,7 @@
             </div>
         </div>
     </div>
+    <center>
     <section class="gameBoard">
     @for(player <- 0 until controller.getNumOfPlayers) {
 
@@ -197,5 +211,6 @@
     }
     </section>
 </center>
+    <script src="@routes.Assets.versioned("javascripts/bootstrap.min.js")" ></script>
 </body>
 }
