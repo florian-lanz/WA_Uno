@@ -3,10 +3,11 @@
 @main("Uno") {
 <head>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Comfortaa">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
     <link rel="stylesheet" href="@routes.Assets.versioned("stylesheets/bootstrap.min.css")" >
 </head>
 <body>
-    <nav class="navbar navbar-expand-md navbar-custom">
+    <nav class="navbar fixed-top navbar-expand-md navbar-custom">
         <div class="container">
             <a href="/" class="navbar-brand navbar-text">
                 <img src="@routes.Assets.versioned(s"images/Uno_Logo.png")" id="navbar-logo" width="50" alt="Logo"/>
@@ -33,7 +34,7 @@
             </div>
         </div>
     </nav>
-    <div class="container-md">
+    <div class="container-md content-container">
         <h1 class="text-center">Uno</h1>
         <hr/>
         <p>
@@ -163,6 +164,24 @@
             </div>
         </div>
     </div>
+
+    <div class="container-md">
+        <hr/>
+        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4">
+            <div class="col-md-4 d-flex align-items-center">
+                <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
+                    <img src="@routes.Assets.versioned(s"images/Uno_Logo.png")" id="navbar-logo" width="50" alt="Logo"/>
+                </a>
+                <span class="p-4 pl-5 footer-names">© 2021 • Moritz Knauer & Florian Lanz</span>
+            </div>
+
+            <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+                <li class="ms-3"><a href="https://github.com/florian-lanz/WA_Uno/" target="_blank" class="footer-icon" ><i class="fab fa-github"></i></a></li>
+                <li class="ms-3"><a href="@{"mailto:moritz.knauer@htwg-konstanz.de"}" class="footer-icon" ><i class="far fa-envelope"></i></a></li>
+            </ul>
+        </footer>
+    </div>
+
     <script src="@routes.Assets.versioned("javascripts/bootstrap.min.js")" ></script>
 </body>
 }
