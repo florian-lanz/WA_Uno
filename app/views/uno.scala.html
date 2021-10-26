@@ -53,7 +53,7 @@
                     <div class="row row-padding">
                         @if(controller.getNumOfPlayers == 2 && player == 1 || controller.getNumOfPlayers != 2 && player == 2) {
                             @if(controller.controllerEvent("idle").equals("Wähle eine Farbe")) {
-                                <div class="col-md-12 text-center">
+                                <div class="col-md-12 text-center col-padding">
                                 @if(controller.getHs2.charAt(2).equals('C')) {
                                     <a href="@{
                                         s"/setspecial/${controller.getHs2}/blue"
@@ -108,14 +108,10 @@
                                 }
                                 </div>
                             } else {
-                                <div class="col-md-5 text-end">
-                                    <a href="/get"><img class="cardClickable" src=@routes.Assets.versioned("images/assets/Deck.png") width="90"></a>
-                                </div>
-                                <div class="col-md-2 text-center">
-                                    <a href="/dostep"><img class="cardClickable" src=@routes.Assets.versioned("images/assets/nextstep.png") width="90"></a>
-                                </div>
-                                <div class="col-md-5 text-start">
-                                    <img class="cardNotClickable" src=@routes.Assets.versioned(s"images/assets/${
+                                <div class="col-12 text-center col-padding">
+                                    <a href="/get"><img class="cardClickable stacks-padding" src=@routes.Assets.versioned("images/assets/Deck.png") width="90"></a>
+                                    <a href="/dostep"><img class="cardClickable stacks-padding" src=@routes.Assets.versioned("images/assets/nextstep.png") width="90"></a>
+                                    <img class="cardNotClickable stacks-padding" src=@routes.Assets.versioned(s"images/assets/${
                                         controller.getCardText(3, 1).replace(' ',
                                             '_')
                                     }.png") width="90">
@@ -126,12 +122,12 @@
                         }
                     }
                     @if((player - 1) % 2 == 0 && controller.getNumOfPlayers != 2) {
-                        <div class="col-md-6 text-start">
+                        <div class="col-md-6 col-sm-12 text-center text-md-start col-padding card-padding">
                     } else {
                         @if(controller.getNumOfPlayers == 2 || controller.getNumOfPlayers == 3 && player == 2) {
-                            <div class="col-md-12 text-center">
+                            <div class="col-md-12 col-sm-12 text-center col-padding card-padding">
                         } else {
-                            <div class="col-md-6 text-end">
+                            <div class="col-md-6 col-sm-12 text-center text-md-end col-padding card-padding">
                         }
                     }
                     @if(controller.getNumOfPlayers == 2 && player == 1 || controller.getNumOfPlayers == 3 && player == 2
@@ -173,7 +169,6 @@
                     </div>
                 }
                 @if(controller.getNumOfPlayers == 2 && player != 1 || (controller.getNumOfPlayers != 2 && (player == 1 || player == controller.getNumOfPlayers - 1))) {
-                    <br><br><br>
                     </div>
                 }
             }
