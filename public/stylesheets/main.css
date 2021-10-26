@@ -34,6 +34,12 @@ h4 {
     p {
         padding-bottom: 60px;
     }
+    .cardClickable {
+        width: 5%;
+    }
+    .cardNotClickable {
+        width: 5%;
+    }
 }
 
 @media (min-width: 769px) {
@@ -272,8 +278,10 @@ form {
 
 .cardClickable {
     padding-top: 5px;
+    min-width: 35px;
 }
 
 .cardNotClickable {
     padding-top: 5px;
+    min-width: 35px;
 }
