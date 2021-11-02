@@ -2,6 +2,17 @@
 
 @main("Uno") {
     <div class="container-fluid content-container">
+@*        <div aria-live="polite" aria-atomic="true" style="position: relative;">*@
+@*            <div class="toast" id="myToast" style="position: absolute; top: 3rem; right: 0;">*@
+@*                <div class="toast-header">*@
+@*                    <strong class="me-auto"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Error</strong>*@
+@*                    <button type="button" class="btn-close" data-bs-dismiss="toast"></button>*@
+@*                </div>*@
+@*                <div class="toast-body">*@
+@*                    Der Gegner ist an der Reihe.*@
+@*                </div>*@
+@*            </div>*@
+@*        </div>*@
         <div class="row">
             <div class="col-md-5 col-sm-12 text-center"></div>
             <div class="col-md-2 col-sm-12 text-center">
@@ -94,10 +105,18 @@
                 <div class="col-md-6 col-sm-12 text-center text-md-start col-padding card-padding">
                 } else {
                 @if(controller.getNumOfPlayers == 2 || controller.getNumOfPlayers == 3 && player == 2) {
-                    <div class="col-md-12 col-sm-12 text-center col-padding card-padding">
+                    @if(player == 2 || controller.getNumOfPlayers == 2 && player == 1) {
+                        <div class="col-md-12 col-sm-12 text-center col-padding card-padding">
                     } else {
-                    <div class="col-md-6 col-sm-12 text-center text-md-end col-padding card-padding">
+                        <div class="col-md-12 col-sm-12 text-center col-padding card-padding">
                     }
+                } else {
+                    @if(player == 2) {
+                        <div class="col-md-6 col-sm-12 text-center text-md-end col-padding card-padding">
+                    } else {
+                        <div class="col-md-6 col-sm-12 text-center text-md-end col-padding card-padding">
+                    }
+                }
             }
             @if(controller.getNumOfPlayers == 2 && player == 1 || controller.getNumOfPlayers == 3 && player == 2
                     || controller.getNumOfPlayers == 4 && player == 2) {
@@ -110,12 +129,12 @@
                             s"/choosecolor/${controller.getCardText(4, card)}"
                         }">
                         @if(controller.getNumOfPlayers <= 3) {
-                            <img id="@{controller.getCardText(4, card)}" class="item-draggable cardClickable" src=@routes.Assets.versioned(s"images/assets/${
+                            <img id="@{controller.getCardText(4, card)}" class="item-draggable cardClickable @{if (controller.nextTurn()) "active-player-glow"}" src=@routes.Assets.versioned(s"images/assets/${
                                 controller.getCardText(4, card).replace(' ',
                                     '_')
                             }.png") width="5%">
                         } else {
-                            <img id="@{controller.getCardText(4, card)}" class="item-draggable cardClickable" src=@routes.Assets.versioned(s"images/assets/${
+                            <img id="@{controller.getCardText(4, card)}" class="item-draggable cardClickable @{if (controller.nextTurn()) "active-player-glow"}" src=@routes.Assets.versioned(s"images/assets/${
                                 controller.getCardText(4, card).replace(' ',
                                     '_')
                             }.png") width="10%">
@@ -130,18 +149,19 @@
                             s"/set/${controller.getCardText(4, card)}"
                         }">
                         @if(controller.getNumOfPlayers <= 3) {
-                            <img id="@{controller.getCardText(4, card)}" class="item-draggable cardClickable" src=@routes.Assets.versioned(s"images/assets/${
+                            <img id="@{controller.getCardText(4, card)}" class="item-draggable cardClickable @{if (controller.nextTurn()) "active-player-glow"}" src=@routes.Assets.versioned(s"images/assets/${
                                 controller.getCardText(4, card).replace(' ',
                                     '_')
                             }.png") width="5%">
                         } else {
-                            <img id="@{controller.getCardText(4, card)}" class="item-draggable cardClickable" src=@routes.Assets.versioned(s"images/assets/${
+                            <img id="@{controller.getCardText(4, card)}" class="item-draggable cardClickable @{if (controller.nextTurn()) "active-player-glow"}" src=@routes.Assets.versioned(s"images/assets/${
                                 controller.getCardText(4, card).replace(' ',
                                     '_')
                             }.png") width="10%">
                             }
                         </a>
                             </span>
+
                         </span>
                     }
 
@@ -151,14 +171,14 @@
                 @if(!(controller.getNumOfPlayers == 4 && player == 3)) {
                     @for(card <- 0 until controller.getLength(player)) {
                         @if(controller.getNumOfPlayers >= 3) {
-                            <img class="cardNotClickable buzz-out-on-hover" src=@routes.Assets.versioned("images/assets/Deck.png") width="10%">
+                            <img class="cardNotClickable buzz-out-on-hover @{if ((controller.nextEnemy() - 1) == player && !controller.nextTurn()) "active-player-glow"}" src=@routes.Assets.versioned("images/assets/Deck.png") width="10%">
                         } else {
-                            <img class="cardNotClickable buzz-out-on-hover" src=@routes.Assets.versioned("images/assets/Deck.png") width="5%">
+                            <img class="cardNotClickable buzz-out-on-hover @{if ((controller.nextEnemy() - 1) == player && !controller.nextTurn()) "active-player-glow"}" src=@routes.Assets.versioned("images/assets/Deck.png") width="5%">
                         }
                     }
                 } else {
                     @for(card <- 0 until controller.getLength(2)) {
-                        <img class="cardNotClickable buzz-out-on-hover" src=@routes.Assets.versioned("images/assets/Deck.png") width="10%">
+                        <img class="cardNotClickable buzz-out-on-hover @{if (controller.nextEnemy() == 3 && !controller.nextTurn()) "active-player-glow"}" src=@routes.Assets.versioned("images/assets/Deck.png") width="10%">
                         }
                 }
             </div>
@@ -169,9 +189,9 @@
         }
     </div>
         @if(controller.controllerEvent("idle").equals("Du bist dran. Mögliche Befehle: q, n [2 | 3 | 4], t, s Karte [Farbe], g, u, r, d, sv, ld")) {
-            <p class="gameText">Du bist am Zug</p>
+            <p id="game-text" class="gameText">Du bist am Zug</p>
         } else {
-            <p class="gameText">@{
+            <p id="game-text" class="gameText">@{
                 controller.controllerEvent("idle")
             }</p>
         }
