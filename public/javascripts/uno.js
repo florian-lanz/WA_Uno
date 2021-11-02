@@ -57,6 +57,7 @@ class CardDeck {
 }
 
 let onDropzone = false;
+let dragMove = 0;
 
 $(document).ready(function() {
     nextStep();
@@ -69,6 +70,10 @@ const droppable = new Draggable.Droppable(document.querySelectorAll('.container-
         'source:dragging': 'hide-card',
         'mirror': 'mirror-card',
     },
+});
+
+droppable.on('drag:move', () => {
+    dragMove++;
 });
 
 droppable.on('droppable:dropped', (event) => {
@@ -85,21 +90,47 @@ droppable.on('droppable:returned', () => {
 
 droppable.on('droppable:stop', (event) => {
     const card = event.dragEvent.originalSource.id;
-    if (onDropzone) {
-        nextStep();
+    if (onDropzone || dragMove <= 1) {
         window.location = '/set/' + card;
+    } else {
+        dragMove = 0;
     }
 });
 
 async function nextStep() {
-    // $('#myToast').toast('show');
     await Sleep(1000);
     const gameText = document.getElementById('game-text');
     const state = gameText.innerText;
     if (state !== 'Du bist am Zug' && state !== 'Wähle eine Farbe' && state !== 'Glückwunsch, du hast gewonnen!' && state !== 'Du hast leider verloren') {
         window.location = '/dostep';
-    }
+    } else if (state === 'Glückwunsch, du hast gewonnen!') {
+        const swalHtml = `
+            <form style="margin: 5px 5px 5px 5px !important;" action="/new/2">
+                <input type="submit" class="btn-new-game" value="New Game: 2 Players"/>
+            </form>
+            <form style="margin: 5px 5px 5px 5px !important;" action="/new/3">
+                <input type="submit" class="btn-new-game" value="New Game: 3 Players"/>
+            </form>
+            <form style="margin: 5px 5px 5px 5px !important;" action="/new/4">
+                <input type="submit" class="btn-new-game" value="New Game: 4 Players"/>
+            </form>
+        `;
 
+        Swal.fire({
+            title: 'Glückwunsch, du hast gewonnen!',
+            width: 600,
+            padding: '3em',
+            closeOnClickOutside: false,
+            showConfirmButton: false,
+            html: swalHtml,
+        });
+
+        const jsConfetti = new JSConfetti();
+        while (true) {
+            await Sleep(3000);
+            jsConfetti.addConfetti();
+        }
+    }
 }
 
 function Sleep(milliseconds) {

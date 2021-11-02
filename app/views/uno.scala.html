@@ -122,20 +122,5 @@
             controller.controllerEvent("idle")
         }</p>
     }
-
-    <!-- New Game Buttons -->
-
-    @if(controller.controllerEvent("idle").equals("Glückwunsch, du hast gewonnen!") ||
-            controller.controllerEvent("idle").equals("Du hast leider verloren")) {
-        <div class="row">
-            <div class="col-12 text-center">
-                @for(players <- 2 until 5) {
-                    <form action="/new/2">
-                        <input type="submit" class="btn-new-game" value="New Game: @{players.toString} Players"/>
-                    </form>
-                }
-            </div>
-        </div>
-    }
     </div>
 }
