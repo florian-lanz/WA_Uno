@@ -80,7 +80,7 @@
                             <a class="clickable-card-link" href="@{
                                 s"/${if(controller.getCardText(4, card).charAt(0).equals('S')) { "choosecolor" } else { "set" }}/${controller.getCardText(4, card)}"
                             }">
-                                <img id="@{controller.getCardText(4, card)}" class="cardClickable @{if (controller.nextTurn()) "active-player-glow"} @{if(controller.getNumOfPlayers <= 3) { "small-card" } else { "big-card" }}" src=@routes.Assets.versioned(s"images/assets/${
+                                <img id="@{controller.getCardText(4, card)}" class="item-draggable cardClickable @{if (controller.nextTurn()) "active-player-glow"} @{if(controller.getNumOfPlayers <= 3) { "small-card" } else { "big-card" }}" src=@routes.Assets.versioned(s"images/assets/${
                                     controller.getCardText(4, card).replace(' ',
                                         '_')
                                 }.png")>
