@@ -2,17 +2,6 @@
 
 @main("Uno") {
     <div class="container-fluid content-container">
-@*        <div aria-live="polite" aria-atomic="true" style="position: relative;">*@
-@*            <div class="toast" id="myToast" style="position: absolute; top: 3rem; right: 0;">*@
-@*                <div class="toast-header">*@
-@*                    <strong class="me-auto"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Error</strong>*@
-@*                    <button type="button" class="btn-close" data-bs-dismiss="toast"></button>*@
-@*                </div>*@
-@*                <div class="toast-body">*@
-@*                    Der Gegner ist an der Reihe.*@
-@*                </div>*@
-@*            </div>*@
-@*        </div>*@
         <div class="row">
             <div class="col-md-5 col-sm-12 text-center"></div>
             <div class="col-md-2 col-sm-12 text-center">
@@ -194,23 +183,6 @@
             <p id="game-text" class="gameText">@{
                 controller.controllerEvent("idle")
             }</p>
-        }
-
-        @if(controller.controllerEvent("idle").equals("Glückwunsch, du hast gewonnen!") ||
-                controller.controllerEvent("idle").equals("Du hast leider verloren")) {
-            <div class="row">
-                <div class="col-12 text-center">
-                    <form action="/new/2">
-                        <input type="submit" class="btn-new-game" value="New Game: 2 Players"/>
-                    </form>
-                    <form action="/new/3">
-                        <input type="submit" class="btn-new-game" value="New Game: 3 Players"/>
-                    </form>
-                    <form action="/new/4">
-                        <input type="submit" class="btn-new-game" value="New Game: 4 Players"/>
-                    </form>
-                </div>
-            </div>
         }
     </div>
 }
