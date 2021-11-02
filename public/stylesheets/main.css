@@ -5,6 +5,14 @@
     box-sizing: border-box;
 }
 
+.small-card {
+    width: 5%;
+}
+
+.big-card {
+    width: 10%;
+}
+
 body {
     background-color: #141427 !important;
 }
