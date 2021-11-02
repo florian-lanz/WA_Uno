@@ -77,12 +77,13 @@
                         </div>
                     } else {
                         <div class="col-12 text-center col-padding">
-                            <a class="clickable-card-link" href="/get"><img class="cardClickable stacks-padding" src=@routes.Assets.versioned("images/assets/Deck.png") width="5%"></a>
-                            <a class="clickable-card-link" href="/dostep"><img class="cardClickable stacks-padding" src=@routes.Assets.versioned("images/assets/nextstep.png") width="5%"></a>
-                            <img class="cardNotClickable stacks-padding" src=@routes.Assets.versioned(s"images/assets/${
-                                controller.getCardText(3, 1).replace(' ',
-                                    '_')
-                            }.png") width="5%">
+                            <a class="clickable-card-link" href="/get">
+                                <img id="deck-card" class="cardClickable stacks-padding" src=@routes.Assets.versioned("images/assets/Deck.png") width="5%">
+                            </a>
+                            <a class="clickable-card-link" href="/dostep">
+                                <img id="nextstep-card" class="cardClickable stacks-padding" src=@routes.Assets.versioned("images/assets/nextstep.png") width="5%">
+                            </a>
+                            <img id="open-card-stack" class="dropzone stacks-padding" src=@routes.Assets.versioned(s"images/assets/${controller.getCardText(3, 1).replace(' ', '_')}.png") width="5%">
                         </div>
                     }
                 </div>
@@ -103,38 +104,45 @@
                 @for(card <- 0 until controller.getLength(4)) {
 
                     @if(controller.getCardText(4, card).charAt(0).equals('S')) {
+                        <span class="container-dropzone">
+                            <span class="dropzone draggable-dropzone--occupied">
                         <a class="clickable-card-link" href="@{
                             s"/choosecolor/${controller.getCardText(4, card)}"
                         }">
                         @if(controller.getNumOfPlayers <= 3) {
-                            <img class="cardClickable" src=@routes.Assets.versioned(s"images/assets/${
+                            <img id="@{controller.getCardText(4, card)}" class="item-draggable cardClickable" src=@routes.Assets.versioned(s"images/assets/${
                                 controller.getCardText(4, card).replace(' ',
                                     '_')
                             }.png") width="5%">
                         } else {
-                            <img class="cardClickable" src=@routes.Assets.versioned(s"images/assets/${
+                            <img id="@{controller.getCardText(4, card)}" class="item-draggable cardClickable" src=@routes.Assets.versioned(s"images/assets/${
                                 controller.getCardText(4, card).replace(' ',
                                     '_')
                             }.png") width="10%">
                             }
-
                         </a>
+                            </span>
+                        </span>
                     } else {
+                        <span class="container-dropzone">
+                            <span class="dropzone draggable-dropzone--occupied">
                         <a class="clickable-card-link" href="@{
                             s"/set/${controller.getCardText(4, card)}"
                         }">
                         @if(controller.getNumOfPlayers <= 3) {
-                            <img class="cardClickable" src=@routes.Assets.versioned(s"images/assets/${
+                            <img id="@{controller.getCardText(4, card)}" class="item-draggable cardClickable" src=@routes.Assets.versioned(s"images/assets/${
                                 controller.getCardText(4, card).replace(' ',
                                     '_')
                             }.png") width="5%">
                         } else {
-                            <img class="cardClickable" src=@routes.Assets.versioned(s"images/assets/${
+                            <img id="@{controller.getCardText(4, card)}" class="item-draggable cardClickable" src=@routes.Assets.versioned(s"images/assets/${
                                 controller.getCardText(4, card).replace(' ',
                                     '_')
                             }.png") width="10%">
                             }
                         </a>
+                            </span>
+                        </span>
                     }
 
                 }

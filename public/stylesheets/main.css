@@ -341,3 +341,16 @@ form {
     color: #999999;
     transition-duration: 0.3s;
 }
+
+.card-deck-dropzone:hover {
+    transform: scale(1.2);
+    transition-duration: 0.3s;
+}
+
+ul {
+    list-style-type: none;
+}
+
+ul li {
+    display: inline-block;
+}
