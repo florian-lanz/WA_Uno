@@ -131,7 +131,7 @@ async function nextStep() {
             await Sleep(3000);
             jsConfetti.addConfetti();
         }
-    } else if (state === 'Du bist am Zug') {
+    } else if (state === 'Du hast leider verloren') {
         const swalHtml = `
             <form style="margin: 5px 5px 5px 5px !important;" action="/new/2">
                 <input type="submit" class="btn-new-game" value="New Game: 2 Players"/>
