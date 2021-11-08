@@ -121,14 +121,16 @@ async function nextStep() {
             width: 600,
             padding: '3em',
             closeOnClickOutside: false,
+            allowOutsideClick: false,
             showConfirmButton: false,
             html: swalHtml,
         });
 
         const jsConfetti = new JSConfetti();
+        await Sleep(100);
         while (true) {
-            await Sleep(3000);
             jsConfetti.addConfetti();
+            await Sleep(3000);
         }
     }
 }
