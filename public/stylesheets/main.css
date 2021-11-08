@@ -413,10 +413,6 @@ ul li {
 }
 
 .drop {
-    /*
-    background:-webkit-gradient(linear, 0% 0%, 0%, 100%, from(rgba(13,52,58,1)), to (rgba(255,255,255,0.6)));
-    background:-moz-linear-gradient(top, rgba(13,52,58,1) 0%, rgba(255,255,255,0.6) 100%);
-    */
     background: #FFFFFF;
     width: 1px;
     height: 89px;
@@ -426,5 +422,13 @@ ul li {
     -moz-animation: fall .63s linear infinite;
 }
 
-@-webkit-keyframes fall { to {margin-top: 1000px;}}
-@-moz-keyframes fall { to {margin-top: 1000px;}}
+@-webkit-keyframes fall {
+    to {
+        margin-top: 1000px;
+    }
+}
+@-moz-keyframes fall {
+    to {
+        margin-top: 1000px;
+    }
+}
