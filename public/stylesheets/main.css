@@ -411,3 +411,24 @@ ul li {
 .btn-new-game:focus-visible {
     outline: none !important;
 }
+
+.drop {
+    background: #FFFFFF;
+    width: 1px;
+    height: 89px;
+    position: absolute;
+    bottom: 200px;
+    -webkit-animation: fall .63s linear infinite;
+    -moz-animation: fall .63s linear infinite;
+}
+
+@-webkit-keyframes fall {
+    to {
+        margin-top: 1000px;
+    }
+}
+@-moz-keyframes fall {
+    to {
+        margin-top: 1000px;
+    }
+}

@@ -132,9 +132,48 @@ async function nextStep() {
             jsConfetti.addConfetti();
             await Sleep(3000);
         }
+    } else if (state === 'Du hast leider verloren') {
+        const swalHtml = `
+            <form style="margin: 5px 5px 5px 5px !important;" action="/new/2">
+                <input type="submit" class="btn-new-game" value="New Game: 2 Players"/>
+            </form>
+            <form style="margin: 5px 5px 5px 5px !important;" action="/new/3">
+                <input type="submit" class="btn-new-game" value="New Game: 3 Players"/>
+            </form>
+            <form style="margin: 5px 5px 5px 5px !important;" action="/new/4">
+                <input type="submit" class="btn-new-game" value="New Game: 4 Players"/>
+            </form>
+        `;
+
+        Swal.fire({
+            title: 'Du hast leider verloren',
+            width: 600,
+            padding: '3em',
+            closeOnClickOutside: false,
+            allowOutsideClick: false,
+            showConfirmButton: false,
+            html: swalHtml,
+        });
+
+        createRain();
     }
 }
 
 function Sleep(milliseconds) {
     return new Promise(resolve => setTimeout(resolve, milliseconds));
+}
+
+function randRange(maxNum, minNum) {
+    return (Math.floor(Math.random(10) * (maxNum - minNum + 1)) + minNum);
+}
+
+function createRain() {
+    for (let i = 0; i < 950; i++) {
+
+        let dropLeft = randRange(0, 3000);
+        let dropTop = randRange(-1000, 1000);
+        $('.rain').append('<div class="drop" id="drop'+ i +'"></div>');
+        $('#drop' + i).css('left', dropLeft);
+        $('#drop' + i).css('top', dropTop);
+    }
 }
