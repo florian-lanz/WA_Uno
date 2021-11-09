@@ -2,64 +2,6 @@
  * Game Logic
  *
  */
-const Color = {
-    Red: "R",
-    Blue: "B",
-    Green: "G",
-    Yellow: "Y",
-    Special: "S"
-};
-
-const Value = {
-    Zero: "0",
-    One: "1",
-    Two: "2",
-    Three: "3",
-    Four: "4",
-    Five: "5",
-    Six: "6",
-    Seven: "7",
-    Eight: "8",
-    Nine: "9",
-    DirectionChange: "D",
-    Suspend: "S",
-    PlusTwo: "+2",
-    PlusFour: "+4",
-    ColorChange: "C",
-};
-
-class Card {
-    constructor(color, value) {
-        this.color = color;
-        this.value = value;
-    }
-
-    toString() {
-        if (this.value === Value.PlusTwo || this.value === Value.PlusFour) {
-            return this.color + this.value;
-        }
-        return this.color + "_" + this.value;
-    }
-}
-
-class CardDeck {
-    cardDeck = [];
-
-    constructor() {
-        for (const [colorKey, color] of Object.entries(Color)) {
-            for (const [valueKey, value] of Object.entries(Value)) {
-                if (color === Color.Special && (value === Value.ColorChange || value === Value.PlusFour)) {
-                    for (let i = 0; i < 4; i++) {
-                        this.cardDeck.push(new Card(color, value));
-                    }
-                } else if (color !== Color.Special && (value !== Value.ColorChange && value !== Value.PlusFour)) {
-                    this.cardDeck.push(new Card(color, value));
-                }
-            }
-        }
-    }
-}
-
 let numOfPlayers = 0;
 let nextTurn = true;
 let nextEnemy = 0;
@@ -91,13 +33,6 @@ function loadJson() {
 
             updateGame();
             nextStep();
-
-            console.log(enemy1Cards);
-            console.log(enemy2Cards);
-            console.log(enemy3Cards);
-            console.log(openCardStack);
-            console.log(playerCards);
-            console.log(gameText);
         },
         error: () => {
             alert('Could not load Json!');
@@ -121,10 +56,10 @@ function updateGame() {
             id = 'D';
         }
         for(let i = 0; i < 4; i++) {
-            $('#open-and-covered-cards').append(`<img onclick="" src="../assets/images/assets/${colors[i]}_${id}.png" width="5%">`);
+            $('#open-and-covered-cards').append(`<img onclick="chooseColor('${colors[i]}')" class="cardClickable" style="margin-left: 5px;" src="../assets/images/assets/${colors[i]}_${id}.png" width="5%">`);
         }
     } else {
-        $('#open-and-covered-cards').append(`<img id="deck-card" class="cardClickable stacks-padding" src="../assets/images/assets/Deck.png" width="5%">`);
+        $('#open-and-covered-cards').append(`<img id="deck-card" onclick="getCard()" class="cardClickable stacks-padding" src="../assets/images/assets/Deck.png" width="5%">`);
         $('#open-and-covered-cards').append(`<img id="open-card-stack" class="dropzone stacks-padding" src="../assets/images/assets/${openCardStack.replace(' ', '_')}.png" width="5%">`);
     }
 
@@ -200,7 +135,22 @@ function updateGame() {
  * Event Listeners
  *
  */
-$('#deck-card').on('click', () => {
+function chooseColor(color) {
+    $.ajax({
+        method: 'GET',
+        url: '/setspecial/' + specialCard + '/' + color.toLowerCase(),
+        dataType: 'text',
+
+        success: () => {
+            loadJson();
+        },
+        error: () => {
+            alert('Could not set special card!');
+        }
+    });
+}
+
+function getCard() {
     $.ajax({
         method: 'GET',
         url: '/get',
@@ -213,7 +163,7 @@ $('#deck-card').on('click', () => {
             alert('Could not get card!');
         }
     });
-});
+}
 
 /**
  * Utility Functions
@@ -367,10 +317,10 @@ function loosingScreen() {
  *
  */
 async function nextStep() {
-    await Sleep(1000);
     const state = gameText;
     if (state !== 'Du bist am Zug' && state !== 'Wähle eine Farbe' && state !== 'Glückwunsch, du hast gewonnen!' &&
         state !== 'Du hast leider verloren') {
+        await Sleep(1000);
         $.ajax({
             method: 'GET',
             url: '/dostep',
