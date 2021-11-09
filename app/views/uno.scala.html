@@ -20,39 +20,11 @@
             @if(player % 2 == 0 || (controller.getNumOfPlayers == 2 && player == 1)) {
                 <div class="row row-padding">
                 @if(controller.getNumOfPlayers == 2 && player == 1 || controller.getNumOfPlayers != 2 && player == 2) {
-                    @if(controller.controllerEvent("idle").equals("Wähle eine Farbe")) {
 
-                        <!-- Choose-Color -->
+                    <!-- Verdeckter & Offener Stapel -->
 
-                        @defining("Blue", "Red", "Green", "Yellow") { colors =>
-                            <div class="col-md-12 text-center col-padding">
-                                @for(color <- 0 until 4) {
-                                    <a class="clickable-card-link" href="@{
-                                        s"/setspecial/${controller.getHs2}/${colors.productElement(color).toString.toLowerCase()}"
-                                    }">
-                                        <img class="cardClickable" src="@routes.Assets.versioned(s"images/assets/${colors.productElement(color)}_${
-                                            if(controller.getHs2.charAt(2).equals('C')) {
-                                                "C"
-                                            } else {
-                                                "D"
-                                            }
-                                        }.png")" width="5%"/>
-                                    </a>
-                                }
-                            </div>
-                        }
-                    } else {
-
-                        <!-- Verdeckter & Offener Stapel -->
-
-                        <div class="col-12 text-center col-padding">
-                            <a class="clickable-card-link" href="/get"><img id="deck-card" class="cardClickable stacks-padding" src=@routes.Assets.versioned("images/assets/Deck.png") width="5%"></a>
-                            <img id="open-card-stack" class="dropzone stacks-padding" src=@routes.Assets.versioned(s"images/assets/${
-                                controller.getCardText(3, 1).replace(' ',
-                                    '_')
-                            }.png") width="5%">
-                        </div>
-                    }
+                    <div id="open-and-covered-cards" class="col-12 text-center col-padding">
+                    </div>
                 </div>
                 <div class="row row-padding">
                 }
@@ -60,7 +32,7 @@
 
             <!-- Öffnen der Col-Divs für die einzelnen Spieler -->
 
-            <div class="@{
+            <div id="@{s"card-stack-${player}"}" class="@{
                 if((player - 1) % 2 == 0 && controller.getNumOfPlayers != 2) {
                     "col-md-6 text-md-start"
                 } else if(controller.getNumOfPlayers == 2 || controller.getNumOfPlayers == 3 && player == 2) {
@@ -74,34 +46,10 @@
 
                 <!-- Offene Kartenhand des Spielers -->
 
-                @for(card <- 0 until controller.getLength(4)) {
-                    <span class="container-dropzone">
-                        <span class="dropzone draggable-dropzone--occupied">
-                            <a class="clickable-card-link" href="@{
-                                s"/${if(controller.getCardText(4, card).charAt(0).equals('S')) { "choosecolor" } else { "set" }}/${controller.getCardText(4, card)}"
-                            }">
-                                <img id="@{controller.getCardText(4, card)}" class="item-draggable cardClickable @{if (controller.nextTurn()) "active-player-glow"} @{if(controller.getNumOfPlayers <= 3) { "small-card" } else { "big-card" }}" src=@routes.Assets.versioned(s"images/assets/${
-                                    controller.getCardText(4, card).replace(' ',
-                                        '_')
-                                }.png")>
-                            </a>
-                        </span>
-                    </span>
-                }
             </div>
         } else {
 
             <!-- Verdeckte Karten der Gegner -->
-
-            @if(!(controller.getNumOfPlayers == 4 && player == 3)) {
-                @for(card <- 0 until controller.getLength(player)) {
-                    <img class="cardNotClickable buzz-out-on-hover @{if(controller.getNumOfPlayers < 3) {"small-card"} else {"big-card"} }  @{if ((controller.nextEnemy() - 1) == player && !controller.nextTurn()) "active-player-glow"}" src=@routes.Assets.versioned("images/assets/Deck.png") width="10%">
-                }
-            } else {
-                @for(card <- 0 until controller.getLength(2)) {
-                    <img class="cardNotClickable buzz-out-on-hover big-card @{if (controller.nextEnemy() == 3 && !controller.nextTurn()) "active-player-glow"}" src=@routes.Assets.versioned("images/assets/Deck.png")>
-                    }
-            }
 
             <!-- Schließen der verschiedenen Divs -->
 
@@ -114,13 +62,7 @@
     </div>
 
     <!-- Textausgabe -->
+        <p id="game-text" class="gameText"></p>
 
-    @if(controller.controllerEvent("idle").equals("Du bist dran. Mögliche Befehle: q, n [2 | 3 | 4], t, s Karte [Farbe], g, u, r, d, sv, ld")) {
-        <p id="game-text" class="gameText">Du bist am Zug</p>
-    } else {
-        <p id="game-text" class="gameText">@{
-            controller.controllerEvent("idle")
-        }</p>
-    }
     </div>
 }

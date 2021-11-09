@@ -326,6 +326,7 @@ form {
 .cardNotClickable {
     margin-top: 5px;
     margin-bottom: 5px;
+    margin-left: 5px;
     min-width: 35px;
 }
 
