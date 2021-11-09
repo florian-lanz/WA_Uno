@@ -3,8 +3,10 @@ package controllers
 import com.google.inject.{Guice, Injector}
 import de.htwg.se.uno.UnoModule
 import de.htwg.se.uno.controller.controllerComponent.{ControllerInterface, GameNotChanged}
+import play.api.libs.json._
 import play.api.mvc.{Action, AnyContent, BaseController, ControllerComponents}
-import play.twirl.api.Html
+import play.api.routing.{JavaScriptReverseRoute, JavaScriptReverseRouter}
+import play.twirl.api.{Html, MimeTypes}
 
 import javax.inject.{Inject, Singleton}
 
@@ -94,6 +96,32 @@ class UnoController @Inject() (val controllerComponents: ControllerComponents) e
 
   def about(): Action[AnyContent] = Action {
     Ok(views.html.index())
+  }
+
+  def gameToJson(): Action[AnyContent] = Action {
+    Ok(
+      Json.prettyPrint(
+        Json.obj(
+          "game" -> Json.obj(
+            "numOfPlayers" -> JsNumber(controller.getNumOfPlayers),
+            "nextTurn" -> JsBoolean(controller.nextTurn()),
+            "nextEnemy" -> JsNumber(controller.nextEnemy()),
+            "gameText" -> JsString(controller.controllerEvent("idle")),
+            "enemy1Cards" -> JsNumber(controller.getLength(0)),
+            "enemy2Cards" -> JsNumber(controller.getLength(1)),
+            "enemy3Cards" -> JsNumber(controller.getLength(2)),
+            "openCardStack" -> JsString(controller.getCardText(3, 1)),
+            "playerCards" -> JsArray(
+              for {
+                cardNumber <- 0 until controller.getLength(4)
+              } yield {
+                JsString(controller.getCardText(4, cardNumber))
+              }
+            ),
+          )
+        )
+      )
+    )
   }
 
 }
