@@ -107,6 +107,7 @@ class UnoController @Inject() (val controllerComponents: ControllerComponents) e
             "nextTurn" -> JsBoolean(controller.nextTurn()),
             "nextEnemy" -> JsNumber(controller.nextEnemy()),
             "gameText" -> JsString(controller.controllerEvent("idle")),
+            "specialCard" -> JsString(controller.getHs2),
             "enemy1Cards" -> JsNumber(controller.getLength(0)),
             "enemy2Cards" -> JsNumber(controller.getLength(1)),
             "enemy3Cards" -> JsNumber(controller.getLength(2)),

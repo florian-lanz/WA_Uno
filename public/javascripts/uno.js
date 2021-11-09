@@ -64,6 +64,7 @@ let numOfPlayers = 0;
 let nextTurn = true;
 let nextEnemy = 0;
 let gameText = '';
+let specialCard = '';
 let enemy1Cards = 0;
 let enemy2Cards = 0;
 let enemy3Cards = 0;
@@ -81,6 +82,7 @@ function loadJson() {
             nextTurn = result.game.nextTurn;
             nextEnemy = result.game.nextEnemy;
             gameText = result.game.gameText;
+            specialCard = result.game.specialCard;
             enemy1Cards = result.game.enemy1Cards;
             enemy2Cards = result.game.enemy2Cards;
             enemy3Cards = result.game.enemy3Cards;
@@ -109,7 +111,22 @@ function updateGame() {
     }
     $('#game-text').text(gameText);
 
-    $('#open-card-stack').attr('src', `../assets/images/assets/${openCardStack.replace(' ', '_')}.png`);
+    $('#open-and-covered-cards').empty();
+    if (gameText === 'Wähle eine Farbe') {
+        const colors = ['Blue', 'Red', 'Green', 'Yellow'];
+        let id = '';
+        if(specialCard.charAt(2) === 'C' ) {
+            id = 'C';
+        } else {
+            id = 'D';
+        }
+        for(let i = 0; i < 4; i++) {
+            $('#open-and-covered-cards').append(`<img onclick="" src="../assets/images/assets/${colors[i]}_${id}.png" width="5%">`);
+        }
+    } else {
+        $('#open-and-covered-cards').append(`<img id="deck-card" class="cardClickable stacks-padding" src="../assets/images/assets/Deck.png" width="5%">`);
+        $('#open-and-covered-cards').append(`<img id="open-card-stack" class="dropzone stacks-padding" src="../assets/images/assets/${openCardStack.replace(' ', '_')}.png" width="5%">`);
+    }
 
     if (numOfPlayers === 2) {
         $('#card-stack-1').empty();
@@ -242,19 +259,35 @@ function activateDroppable() {
     droppable.on('droppable:stop', (event) => {
         const card = event.dragEvent.originalSource.id;
         if (onDropzone || dragMove <= 1) {
-            $.ajax({
-                method: 'GET',
-                url: '/set/' + card,
-                dataType: 'text',
+            if (card.toString().startsWith('S')) {
+                $.ajax({
+                    method: 'GET',
+                    url: '/choosecolor/' + card,
+                    dataType: 'text',
 
-                success: () => {
-                    $('#open-card-stack').removeClass('draggable-dropzone--occupied');
-                    loadJson();
-                },
-                error: () => {
-                    alert('Could not set card!');
-                }
-            });
+                    success: () => {
+                        $('#open-card-stack').removeClass('draggable-dropzone--occupied');
+                        loadJson();
+                    },
+                    error: () => {
+                        alert('Could not set card!');
+                    }
+                });
+            } else {
+                $.ajax({
+                    method: 'GET',
+                    url: '/set/' + card,
+                    dataType: 'text',
+
+                    success: () => {
+                        $('#open-card-stack').removeClass('draggable-dropzone--occupied');
+                        loadJson();
+                    },
+                    error: () => {
+                        alert('Could not set card!');
+                    }
+                });
+            }
         } else {
             dragMove = 0;
         }

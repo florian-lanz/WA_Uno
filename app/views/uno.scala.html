@@ -20,36 +20,11 @@
             @if(player % 2 == 0 || (controller.getNumOfPlayers == 2 && player == 1)) {
                 <div class="row row-padding">
                 @if(controller.getNumOfPlayers == 2 && player == 1 || controller.getNumOfPlayers != 2 && player == 2) {
-                    @if(controller.controllerEvent("idle").equals("Wähle eine Farbe")) {
 
-                        <!-- Choose-Color -->
+                    <!-- Verdeckter & Offener Stapel -->
 
-                        @defining("Blue", "Red", "Green", "Yellow") { colors =>
-                            <div class="col-md-12 text-center col-padding">
-                                @for(color <- 0 until 4) {
-                                    <a class="clickable-card-link" href="@{
-                                        s"/setspecial/${controller.getHs2}/${colors.productElement(color).toString.toLowerCase()}"
-                                    }">
-                                        <img class="cardClickable" src="@routes.Assets.versioned(s"images/assets/${colors.productElement(color)}_${
-                                            if(controller.getHs2.charAt(2).equals('C')) {
-                                                "C"
-                                            } else {
-                                                "D"
-                                            }
-                                        }.png")" width="5%"/>
-                                    </a>
-                                }
-                            </div>
-                        }
-                    } else {
-
-                        <!-- Verdeckter & Offener Stapel -->
-
-                        <div id="open-and-covered-cards" class="col-12 text-center col-padding">
-                            <img id="deck-card" class="cardClickable stacks-padding" src=@routes.Assets.versioned("images/assets/Deck.png") width="5%">
-                            <img id="open-card-stack" class="dropzone stacks-padding" src=@routes.Assets.versioned(s"images/assets/Deck.png") width="5%">
-                        </div>
-                    }
+                    <div id="open-and-covered-cards" class="col-12 text-center col-padding">
+                    </div>
                 </div>
                 <div class="row row-padding">
                 }
