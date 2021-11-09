@@ -1,3 +1,7 @@
+/**
+ * Game Logic
+ *
+ */
 const Color = {
     Red: "R",
     Blue: "B",
@@ -56,12 +60,20 @@ class CardDeck {
     }
 }
 
+/**
+ * Utility Functions
+ *
+ */
+function Sleep(milliseconds) {
+    return new Promise(resolve => setTimeout(resolve, milliseconds));
+}
+
+/**
+ * Draggable Library
+ *
+ */
 let onDropzone = false;
 let dragMove = 0;
-
-$(document).ready(function() {
-    nextStep();
-});
 
 const droppable = new Draggable.Droppable(document.querySelectorAll('.container-dropzone'), {
     draggable: '.item-draggable',
@@ -97,72 +109,10 @@ droppable.on('droppable:stop', (event) => {
     }
 });
 
-async function nextStep() {
-    await Sleep(1000);
-    const gameText = document.getElementById('game-text');
-    const state = gameText.innerText;
-    if (state !== 'Du bist am Zug' && state !== 'Wähle eine Farbe' && state !== 'Glückwunsch, du hast gewonnen!' && state !== 'Du hast leider verloren') {
-        window.location = '/dostep';
-    } else if (state === 'Glückwunsch, du hast gewonnen!') {
-        const swalHtml = `
-            <form style="margin: 5px 5px 5px 5px !important;" action="/new/2">
-                <input type="submit" class="btn-new-game" value="New Game: 2 Players"/>
-            </form>
-            <form style="margin: 5px 5px 5px 5px !important;" action="/new/3">
-                <input type="submit" class="btn-new-game" value="New Game: 3 Players"/>
-            </form>
-            <form style="margin: 5px 5px 5px 5px !important;" action="/new/4">
-                <input type="submit" class="btn-new-game" value="New Game: 4 Players"/>
-            </form>
-        `;
-
-        Swal.fire({
-            title: 'Glückwunsch, du hast gewonnen!',
-            width: 600,
-            padding: '3em',
-            closeOnClickOutside: false,
-            allowOutsideClick: false,
-            showConfirmButton: false,
-            html: swalHtml,
-        });
-
-        const jsConfetti = new JSConfetti();
-        await Sleep(100);
-        while (true) {
-            jsConfetti.addConfetti();
-            await Sleep(3000);
-        }
-    } else if (state === 'Du hast leider verloren') {
-        const swalHtml = `
-            <form style="margin: 5px 5px 5px 5px !important;" action="/new/2">
-                <input type="submit" class="btn-new-game" value="New Game: 2 Players"/>
-            </form>
-            <form style="margin: 5px 5px 5px 5px !important;" action="/new/3">
-                <input type="submit" class="btn-new-game" value="New Game: 3 Players"/>
-            </form>
-            <form style="margin: 5px 5px 5px 5px !important;" action="/new/4">
-                <input type="submit" class="btn-new-game" value="New Game: 4 Players"/>
-            </form>
-        `;
-
-        Swal.fire({
-            title: 'Du hast leider verloren',
-            width: 600,
-            padding: '3em',
-            closeOnClickOutside: false,
-            allowOutsideClick: false,
-            showConfirmButton: false,
-            html: swalHtml,
-        });
-
-        createRain();
-    }
-}
-
-function Sleep(milliseconds) {
-    return new Promise(resolve => setTimeout(resolve, milliseconds));
-}
-
+/**
+ * Create Rain
+ *
+ */
 function randRange(maxNum, minNum) {
     return (Math.floor(Math.random(10) * (maxNum - minNum + 1)) + minNum);
 }
@@ -177,3 +127,78 @@ function createRain() {
         $('#drop' + i).css('top', dropTop);
     }
 }
+
+/**
+ * Winning & Loosing Screen
+ *
+ */
+const swalHtml = `
+    <form style="margin: 5px 5px 5px 5px !important;" action="/new/2">
+        <input type="submit" class="btn-new-game" value="New Game: 2 Players"/>
+    </form>
+    <form style="margin: 5px 5px 5px 5px !important;" action="/new/3">
+        <input type="submit" class="btn-new-game" value="New Game: 3 Players"/>
+    </form>
+    <form style="margin: 5px 5px 5px 5px !important;" action="/new/4">
+        <input type="submit" class="btn-new-game" value="New Game: 4 Players"/>
+    </form>
+`;
+
+async function winningScreen() {
+    Swal.fire({
+        title: 'Glückwunsch, du hast gewonnen!',
+        width: 600,
+        padding: '3em',
+        closeOnClickOutside: false,
+        allowOutsideClick: false,
+        showConfirmButton: false,
+        html: swalHtml,
+    });
+
+    const jsConfetti = new JSConfetti();
+    await Sleep(100);
+    while (true) {
+        jsConfetti.addConfetti();
+        await Sleep(3000);
+    }
+}
+
+function loosingScreen() {
+    Swal.fire({
+        title: 'Du hast leider verloren',
+        width: 600,
+        padding: '3em',
+        closeOnClickOutside: false,
+        allowOutsideClick: false,
+        showConfirmButton: false,
+        html: swalHtml,
+    });
+
+    createRain();
+}
+
+/**
+ * Automatic Gameplay
+ *
+ */
+async function nextStep() {
+    await Sleep(1000);
+    const gameText = document.getElementById('game-text');
+    const state = gameText.innerText;
+    if (state !== 'Du bist am Zug' && state !== 'Wähle eine Farbe' && state !== 'Glückwunsch, du hast gewonnen!' &&
+        state !== 'Du hast leider verloren') {
+        window.location = '/dostep';
+    } else if (state === 'Glückwunsch, du hast gewonnen!') {
+        await winningScreen();
+    } else if (state === 'Du hast leider verloren') {
+        loosingScreen();
+    }
+}
+
+/**
+ * On Load
+ *
+ */
+$(document).ready(async function() {
+    await nextStep();
+});
