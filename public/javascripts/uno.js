@@ -32,7 +32,10 @@ function loadJson() {
             playerCards = result.game.playerCards;
 
             updateGame();
-            nextStep();
+
+            if(window.location.href.includes('new') || window.location.href.includes('load') || window.location.href.includes('save')) {
+                nextStep();
+            }
         },
         error: () => {
             alert('Could not load Json!');
@@ -284,7 +287,6 @@ async function winningScreen() {
         title: 'Glückwunsch, du hast gewonnen!',
         width: 600,
         padding: '3em',
-        closeOnClickOutside: false,
         allowOutsideClick: false,
         showConfirmButton: false,
         html: swalHtml,
@@ -303,7 +305,6 @@ function loosingScreen() {
         title: 'Du hast leider verloren',
         width: 600,
         padding: '3em',
-        closeOnClickOutside: false,
         allowOutsideClick: false,
         showConfirmButton: false,
         html: swalHtml,
@@ -317,9 +318,8 @@ function loosingScreen() {
  *
  */
 async function nextStep() {
-    const state = gameText;
-    if (state !== 'Du bist am Zug' && state !== 'Wähle eine Farbe' && state !== 'Glückwunsch, du hast gewonnen!' &&
-        state !== 'Du hast leider verloren') {
+    if (gameText !== 'Du bist am Zug' && gameText !== 'Wähle eine Farbe' && gameText !== 'Glückwunsch, du hast gewonnen!' &&
+        gameText !== 'Du hast leider verloren') {
         await Sleep(1000);
         $.ajax({
             method: 'GET',
@@ -333,9 +333,10 @@ async function nextStep() {
                 alert('Next step not possible!');
             }
         });
-    } else if (state === 'Glückwunsch, du hast gewonnen!') {
+    } else if (gameText === 'Glückwunsch, du hast gewonnen!') {
+        console.log(gameText);
         await winningScreen();
-    } else if (state === 'Du hast leider verloren') {
+    } else if (gameText === 'Du hast leider verloren') {
         loosingScreen();
     }
 }
