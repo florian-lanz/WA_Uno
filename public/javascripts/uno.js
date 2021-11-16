@@ -13,87 +13,15 @@ let enemy3Cards = 0;
 let openCardStack = '';
 let playerCards = [];
 
-function loadJson() {
-    $.ajax({
-        method: 'GET',
-        url: '/json',
-        dataType: 'json',
-
-        success: (result) => {
-            numOfPlayers = result.game.numOfPlayers;
-            nextTurn = result.game.nextTurn;
-            nextEnemy = result.game.nextEnemy;
-            gameText = result.game.gameText;
-            specialCard = result.game.specialCard;
-            enemy1Cards = result.game.enemy1Cards;
-            enemy2Cards = result.game.enemy2Cards;
-            enemy3Cards = result.game.enemy3Cards;
-            openCardStack = result.game.openCardStack;
-            playerCards = result.game.playerCards;
-
-            updateGame();
-
-            if(window.location.href.includes('new') || window.location.href.includes('load') || window.location.href.includes('save')) {
-                nextStep();
-            }
-        },
-        error: () => {
-            alert('Could not load Json!');
-        }
-    });
-}
-
 function updateGame() {
     if (gameText.startsWith('Du bist dran')) {
         gameText = 'Du bist am Zug';
     }
-    $('#game-text').text(gameText);
+    changeGameText(gameText);
 
-    $('#open-and-covered-cards').empty();
-    if (gameText === 'Wähle eine Farbe') {
-        const colors = ['Blue', 'Red', 'Green', 'Yellow'];
-        let id = '';
-        if(specialCard.charAt(2) === 'C' ) {
-            id = 'C';
-        } else {
-            id = 'D';
-        }
-        for(let i = 0; i < 4; i++) {
-            $('#open-and-covered-cards').append(`<img onclick="chooseColor('${colors[i]}')" class="cardClickable" style="margin-left: 5px;" src="../assets/images/assets/${colors[i]}_${id}.png" width="5%">`);
-        }
-    } else {
-        $('#open-and-covered-cards').append(`<img id="deck-card" onclick="getCard()" class="cardClickable stacks-padding" src="../assets/images/assets/Deck.png" width="5%">`);
-        $('#open-and-covered-cards').append(`<img id="open-card-stack" class="dropzone stacks-padding" src="../assets/images/assets/${openCardStack.replace(' ', '_')}.png" width="5%">`);
-    }
+    changeMiddleDiv();
 
-    if (numOfPlayers === 2) {
-        $('#card-stack-1').empty();
-    }else {
-        $('#card-stack-2').empty();
-    }
-    let cssClasses = '';
-    if (nextTurn) {
-        cssClasses = ' active-player-glow';
-    }
-    if (numOfPlayers <= 3) {
-        cssClasses += ' small-card';
-    } else {
-        cssClasses += ' big-card';
-    }
-    playerCards.forEach((card) => {
-        const cardHtml = `
-        <span class="container-dropzone">
-            <span class="dropzone draggable-dropzone--occupied">
-                <img id="${card}" class="item-draggable cardClickable${cssClasses}" src="${'../assets/images/assets/' + card.replace(' ', '_') + '.png'}">
-            </span>
-        </span>`;
-
-        if (numOfPlayers === 2) {
-            $('#card-stack-1').append(cardHtml);
-        } else {
-            $('#card-stack-2').append(cardHtml);
-        }
-    })
+    changePlayerDiv();
 
     $('#card-stack-0').empty();
     cssClasses = '';
@@ -144,13 +72,62 @@ function chooseColor(color) {
         url: '/setspecial/' + specialCard + '/' + color.toLowerCase(),
         dataType: 'text',
 
-        success: () => {
-            loadJson();
-        },
         error: () => {
             alert('Could not set special card!');
         }
     });
+}
+
+function chooseColorScreen() {
+    $('#open-and-covered-cards').empty();
+
+    const colors = ['Blue', 'Red', 'Green', 'Yellow'];
+    let id = '';
+    specialCard.charAt(2) === 'C' ? id = 'C' : id = 'D';
+    for(let i = 0; i < 4; i++) {
+        $('#open-and-covered-cards').append(`<img onclick="chooseColor('${colors[i]}')" class="cardClickable" style="margin-left: 5px;" src="../assets/images/assets/${colors[i]}_${id}.png" width="5%">`);
+    }
+}
+
+function changeMiddleDiv() {
+    $('#open-and-covered-cards').empty();
+    $('#open-and-covered-cards').append(`<img id="deck-card" onclick="getCard()" class="cardClickable stacks-padding" src="../assets/images/assets/Deck.png" width="5%">`);
+    $('#open-and-covered-cards').append(`<img id="open-card-stack" class="dropzone stacks-padding" src="../assets/images/assets/${openCardStack.replace(' ', '_')}.png" width="5%">`);
+}
+
+function changePlayerDiv() {
+    if (numOfPlayers === 2) {
+        $('#card-stack-1').empty();
+    } else {
+        $('#card-stack-2').empty();
+    }
+    let cssClasses = '';
+    if (nextTurn) {
+        cssClasses = ' active-player-glow';
+    }
+    if (numOfPlayers <= 3) {
+        cssClasses += ' small-card';
+    } else {
+        cssClasses += ' big-card';
+    }
+    playerCards.forEach((card) => {
+        const cardHtml = `
+        <span class="container-dropzone">
+            <span class="dropzone draggable-dropzone--occupied">
+                <img id="${card}" class="item-draggable cardClickable${cssClasses}" src="${'../assets/images/assets/' + card.replace(' ', '_') + '.png'}">
+            </span>
+        </span>`;
+
+        if (numOfPlayers === 2) {
+            $('#card-stack-1').append(cardHtml);
+        } else {
+            $('#card-stack-2').append(cardHtml);
+        }
+    })
+}
+
+function changeGameText(text) {
+    $('#game-text').text(text);
 }
 
 function getCard() {
@@ -159,9 +136,6 @@ function getCard() {
         url: '/get',
         dataType: 'text',
 
-        success: () => {
-            loadJson();
-        },
         error: () => {
             alert('Could not get card!');
         }
@@ -220,7 +194,6 @@ function activateDroppable() {
 
                     success: () => {
                         $('#open-card-stack').removeClass('draggable-dropzone--occupied');
-                        loadJson();
                     },
                     error: () => {
                         alert('Could not set card!');
@@ -234,7 +207,6 @@ function activateDroppable() {
 
                     success: () => {
                         $('#open-card-stack').removeClass('draggable-dropzone--occupied');
-                        loadJson();
                     },
                     error: () => {
                         alert('Could not set card!');
@@ -283,6 +255,7 @@ const swalHtml = `
 `;
 
 async function winningScreen() {
+    changeGameText("");
     Swal.fire({
         title: 'Glückwunsch, du hast gewonnen!',
         width: 600,
@@ -301,6 +274,7 @@ async function winningScreen() {
 }
 
 function loosingScreen() {
+    changeGameText("");
     Swal.fire({
         title: 'Du hast leider verloren',
         width: 600,
@@ -326,19 +300,47 @@ async function nextStep() {
             url: '/dostep',
             dataType: 'text',
 
-            success: () => {
-                loadJson();
-            },
             error: () => {
                 alert('Next step not possible!');
             }
         });
-    } else if (gameText === 'Glückwunsch, du hast gewonnen!') {
-        console.log(gameText);
-        await winningScreen();
-    } else if (gameText === 'Du hast leider verloren') {
-        loosingScreen();
     }
+}
+
+function iconBar() {
+    $('#undo').on('click', () => {
+        $.ajax({
+            method: 'GET',
+            url: '/undo',
+            dataType: 'text',
+
+            error: () => {
+                alert('Undo Not Possible!');
+            }
+        });
+    });
+    $('#redo').on('click', () => {
+        $.ajax({
+            method: 'GET',
+            url: '/redo',
+            dataType: 'text',
+
+            error: () => {
+                alert('Undo Not Possible!');
+            }
+        });
+    });
+    $('#save').on('click', () => {
+        $.ajax({
+            method: 'GET',
+            url: '/save',
+            dataType: 'text',
+
+            error: () => {
+                alert('Undo Not Possible!');
+            }
+        });
+    });
 }
 
 function connectWebSocket() {
@@ -347,6 +349,19 @@ function connectWebSocket() {
 
     websocket.onopen = function(event) {
         console.log("Connected to Websocket");
+
+        $.ajax({
+            method: 'GET',
+            url: '/json',
+            dataType: 'json',
+
+            success: (result) => {
+                loadGame(result);
+            },
+            error: () => {
+                alert('Could not load Json!');
+            }
+        });
     }
 
     websocket.onclose = function () {
@@ -359,11 +374,45 @@ function connectWebSocket() {
 
     websocket.onmessage = function (e) {
         if (typeof e.data === "string") {
-            let json = JSON.parse(e.data);
-            console.log(json);
+            if (e.data === "GameWon") {
+                winningScreen();
+            } else if (e.data === "GameLost") {
+                loosingScreen();
+            } else if (e.data.toString().startsWith("GameNotChanged")) {
+                if(e.data.toString().length > 14) {
+                    let json = JSON.parse(e.data.toString().substring(15));
+                    loadGame(json);
+                }
+            } else if (e.data.toString().startsWith("ChooseColor")) {
+                specialCard = e.data.toString().substring(13, 16);
+                chooseColorScreen();
+                changeGameText(e.data.toString().substring(16));
+            } else {
+                let json = JSON.parse(e.data);
+                loadGame(json);
+            }
         }
 
     };
+}
+
+function loadGame(json) {
+    numOfPlayers = json.game.numOfPlayers;
+    nextTurn = json.game.nextTurn;
+    nextEnemy = json.game.nextEnemy;
+    gameText = json.game.gameText;
+    specialCard = json.game.specialCard;
+    enemy1Cards = json.game.enemy1Cards;
+    enemy2Cards = json.game.enemy2Cards;
+    enemy3Cards = json.game.enemy3Cards;
+    openCardStack = json.game.openCardStack;
+    playerCards = json.game.playerCards;
+
+    updateGame();
+
+    if(window.location.href.includes('new') || window.location.href.includes('load') || window.location.href.includes('save')) {
+        nextStep();
+    }
 }
 
 
@@ -372,6 +421,6 @@ function connectWebSocket() {
  *
  */
 $(document).ready(function() {
-    loadJson();
+    iconBar();
     connectWebSocket();
 });
