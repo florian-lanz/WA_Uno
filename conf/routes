@@ -16,7 +16,8 @@ GET     /undo                       controllers.UnoController.undo
 GET     /redo                       controllers.UnoController.redo
 GET     /save                       controllers.UnoController.save
 GET     /load                       controllers.UnoController.load
-GET     /json                       controllers.UnoController.gameToJson
+GET     /json                       controllers.UnoController.gameToJsonAction
+GET     /websocket                  controllers.UnoController.socket
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
