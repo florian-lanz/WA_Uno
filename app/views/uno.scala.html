@@ -41,20 +41,8 @@
                     "col-md-6 text-md-end"
                 }
             } col-sm-12 text-center col-padding card-padding">
-            @if(controller.getNumOfPlayers == 2 && player == 1 || controller.getNumOfPlayers == 3 && player == 2
-                    || controller.getNumOfPlayers == 4 && player == 2) {
-
-                <!-- Offene Kartenhand des Spielers -->
 
             </div>
-        } else {
-
-            <!-- Verdeckte Karten der Gegner -->
-
-            <!-- Schließen der verschiedenen Divs -->
-
-            </div>
-        }
         @if(controller.getNumOfPlayers == 2 && player != 1 || (controller.getNumOfPlayers != 2 && (player == 1 || player == controller.getNumOfPlayers - 1))) {
             </div>
         }
