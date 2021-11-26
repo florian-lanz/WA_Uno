@@ -265,16 +265,23 @@ function createRain() {
  *
  */
 const swalHtml = `
-    <form style="margin: 5px 5px 5px 5px !important;" action="/new/2">
-        <input type="submit" class="btn-new-game" value="New Game: 2 Players"/>
-    </form>
-    <form style="margin: 5px 5px 5px 5px !important;" action="/new/3">
-        <input type="submit" class="btn-new-game" value="New Game: 3 Players"/>
-    </form>
-    <form style="margin: 5px 5px 5px 5px !important;" action="/new/4">
-        <input type="submit" class="btn-new-game" value="New Game: 4 Players"/>
-    </form>
+        <button id="new2" style="margin: 5px 5px 5px 5px !important;" class="btn-new-game" onclick="newGame(2);">New Game: 2 Players</button>
+        <button id="new3" style="margin: 5px 5px 5px 5px !important;" class="btn-new-game" onclick="newGame(3);">New Game: 3 Players</button>
+        <button id="new4" style="margin: 5px 5px 5px 5px !important;" class="btn-new-game" onclick="newGame(4);">New Game: 4 Players</button>
 `;
+
+function newGame(numOfPlayers) {
+    window.location.href = '/game';
+    $.ajax({
+    method: 'GET',
+    url: '/new/' + numOfPlayers,
+    dataType: 'text',
+
+    error: () => {
+        alert('New Game Not Possible!)');
+    }
+});
+}
 
 async function winningScreen() {
     changeGameText("");
@@ -334,7 +341,8 @@ function test() {
 }
 
 function navBar() {
-    $('#newGame2').on('click', () => {
+    $('#newGame2, #new2').on('click', () => {
+        console.log("Hi");
         if(!window.location.href.includes('game')) {
             window.location.href = '/game';
         }
@@ -348,7 +356,7 @@ function navBar() {
             }
         });
     });
-    $('#newGame3').on('click', () => {
+    $('#newGame3, #new3').on('click', () => {
         if(!window.location.href.includes('game')) {
             window.location.href = '/game';
         }
@@ -362,7 +370,7 @@ function navBar() {
             }
         });
     });
-    $('#newGame4').on('click', () => {
+    $('#newGame4, #new4').on('click', () => {
         if(!window.location.href.includes('game')) {
             window.location.href = '/game';
         }
@@ -458,8 +466,10 @@ function connectWebSocket() {
         if (typeof e.data === "string") {
             if (e.data === "GameWon") {
                 winningScreen();
+                websocket.close();
             } else if (e.data === "GameLost") {
                 loosingScreen();
+                websocket.close();
             } else if (e.data.toString().startsWith("GameNotChanged")) {
                 if(e.data.toString().length > 14) {
                     let json = JSON.parse(e.data.toString().substring(15));
