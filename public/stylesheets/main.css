@@ -295,6 +295,7 @@ form {
     font-family: Comfortaa;
     font-weight: bold;
     color:  #FFFFFF;
+    cursor: pointer;
 }
 
 .dropdown-menu.show > li > a:hover {

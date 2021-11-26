@@ -29,6 +29,10 @@ class UnoController @Inject() (val controllerComponents: ControllerComponents) (
     Ok(print())
   }
 
+  def game(): Action[AnyContent] = Action {
+    Ok(print())
+  }
+
   def testGame(): Action[AnyContent] = Action {
     controller.createTestGame()
     Ok(print())
@@ -155,13 +159,17 @@ class UnoController @Inject() (val controllerComponents: ControllerComponents) (
     }
 
     reactions += {
+      case event: GameSizeChanged => {
+        println("Received GameSizeChanged-Event from Controller")
+        sendJsonToClient("GameSizeChanged " + gameToJson())
+      }
       case event: GameChanged => {
         println("Received GameChanged-Event from Controller")
         sendJsonToClient()
       }
       case event: GameNotChanged => {
         println("Received GameNotChanged-Event from Controller")
-        val game = if (controller.controllerEvent("idle").equals("Du kannst diese Karte nicht legen")) " " + gameToJson() else "";
+        val game = if (controller.controllerEvent("idle").equals("Du kannst diese Karte nicht legen")) " " + gameToJson() else ""
         sendJsonToClient("GameNotChanged" + game)
       }
       case event: ChooseColor => {

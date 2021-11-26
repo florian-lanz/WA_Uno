@@ -6,6 +6,7 @@
 # An example controller showing a sample home page
 GET     /                           controllers.UnoController.about
 GET     /new/:newGame               controllers.UnoController.newGame(newGame: Int)
+GET     /game                       controllers.UnoController.game()
 GET     /test                       controllers.UnoController.testGame
 GET     /set/:card                  controllers.UnoController.set(card: String)
 GET     /setspecial/:card/:color    controllers.UnoController.setSpecial(card: String, color: String)

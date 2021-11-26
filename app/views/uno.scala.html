@@ -12,37 +12,27 @@
                     <i id="undo" class="fas fa-undo-alt"></i>
                     <i id="redo" class="fas fa-redo-alt"></i>
                     <i id="save" class="fas fa-save"></i>
-                    <a href="/load"><i class="fas fa-file-upload"></i></a>
+                    <i id="load" class="fas fa-file-upload"></i>
                 </div>
             </div>
         </div>
         @for(player <- 0 until controller.getNumOfPlayers) {
             @if(player % 2 == 0 || (controller.getNumOfPlayers == 2 && player == 1)) {
-                <div class="row row-padding">
-                @if(controller.getNumOfPlayers == 2 && player == 1 || controller.getNumOfPlayers != 2 && player == 2) {
+                @if(player == 0 || (player == 2 && controller.getNumOfPlayers >= 3)) {
+                    <div id="row-1" class="row row-padding">
+                } else {
+                    <div class="row row-padding">
+                }
+                    @if(controller.getNumOfPlayers == 2 && player == 1 || controller.getNumOfPlayers != 2 && player == 2) {
 
-                    <!-- Verdeckter & Offener Stapel -->
+                        <!-- Verdeckter & Offener Stapel -->
 
-                    <div id="open-and-covered-cards" class="col-12 text-center col-padding">
+                        <div id="open-and-covered-cards" class="col-12 text-center col-padding">
+                        </div>
                     </div>
-                </div>
-                <div class="row row-padding">
+                    <div id="row-2" class="row row-padding">
                 }
             }
-
-            <!-- Öffnen der Col-Divs für die einzelnen Spieler -->
-
-            <div id="@{s"card-stack-${player}"}" class="@{
-                if((player - 1) % 2 == 0 && controller.getNumOfPlayers != 2) {
-                    "col-md-6 text-md-start"
-                } else if(controller.getNumOfPlayers == 2 || controller.getNumOfPlayers == 3 && player == 2) {
-                    "col-md-12"
-                } else {
-                    "col-md-6 text-md-end"
-                }
-            } col-sm-12 text-center col-padding card-padding">
-
-            </div>
         @if(controller.getNumOfPlayers == 2 && player != 1 || (controller.getNumOfPlayers != 2 && (player == 1 || player == controller.getNumOfPlayers - 1))) {
             </div>
         }
@@ -50,7 +40,7 @@
     </div>
 
     <!-- Textausgabe -->
-        <p id="game-text" class="gameText"></p>
+    <p id="game-text" class="gameText"></p>
 
     </div>
 }

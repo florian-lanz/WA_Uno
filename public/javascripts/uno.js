@@ -12,6 +12,7 @@ let enemy2Cards = 0;
 let enemy3Cards = 0;
 let openCardStack = '';
 let playerCards = [];
+let sizeChanged = false;
 
 function updateGame() {
     if (gameText.startsWith('Du bist dran')) {
@@ -60,6 +61,27 @@ function updateGame() {
     }
 
     activateDroppable();
+}
+
+function updateDivs() {
+    $('#row-1').empty();
+    $('#row-2').empty();
+    for (let i = 0; i < numOfPlayers; i++) {
+        let cssClasses = '';
+        if ((i - 1) % 2 === 0 && numOfPlayers !== 2) {
+            cssClasses = "col-md-6 text-md-start";
+        } else if (numOfPlayers === 2 || numOfPlayers === 3 && i === 2) {
+            cssClasses = "col-md-12";
+        } else {
+            cssClasses = "col-md-6 text-md-end";
+        }
+        if(i === 0 || numOfPlayers >= 3 && i <= 1) {
+            $('#row-1').append(`<div id="card-stack-${i}" class="${cssClasses} col-sm-12 text-center col-padding card-padding"></div>`);
+        } else {
+            $('#row-2').append(`<div id="card-stack-${i}" class="${cssClasses} col-sm-12 text-center col-padding card-padding"></div>`);
+        }
+
+    }
 }
 
 /**
@@ -307,6 +329,55 @@ async function nextStep() {
     }
 }
 
+function test() {
+    console.log("HI");
+}
+
+function navBar() {
+    $('#newGame2').on('click', () => {
+        if(!window.location.href.includes('game')) {
+            window.location.href = '/game';
+        }
+        $.ajax({
+            method: 'GET',
+            url: '/new/2',
+            dataType: 'text',
+
+            error: () => {
+                alert('New Game Not Possible!)');
+            }
+        });
+    });
+    $('#newGame3').on('click', () => {
+        if(!window.location.href.includes('game')) {
+            window.location.href = '/game';
+        }
+        $.ajax({
+            method: 'GET',
+            url: '/new/3',
+            dataType: 'text',
+
+            error: () => {
+                alert('New Game Not Possible!)');
+            }
+        });
+    });
+    $('#newGame4').on('click', () => {
+        if(!window.location.href.includes('game')) {
+            window.location.href = '/game';
+        }
+        $.ajax({
+            method: 'GET',
+            url: '/new/4',
+            dataType: 'text',
+
+            error: () => {
+                alert('New Game Not Possible!)');
+            }
+        });
+    });
+}
+
 function iconBar() {
     $('#undo').on('click', () => {
         $.ajax({
@@ -334,6 +405,17 @@ function iconBar() {
         $.ajax({
             method: 'GET',
             url: '/save',
+            dataType: 'text',
+
+            error: () => {
+                alert('Undo Not Possible!');
+            }
+        });
+    });
+    $('#load').on('click', () => {
+        $.ajax({
+            method: 'GET',
+            url: '/load',
             dataType: 'text',
 
             error: () => {
@@ -387,6 +469,10 @@ function connectWebSocket() {
                 specialCard = e.data.toString().substring(13, 16);
                 chooseColorScreen();
                 changeGameText(e.data.toString().substring(16));
+            } else if (e.data.toString().startsWith("GameSizeChanged")) {
+                sizeChanged = true;
+                let json = JSON.parse(e.data.toString().substring(16));
+                loadGame(json);
             } else {
                 let json = JSON.parse(e.data);
                 loadGame(json);
@@ -408,9 +494,14 @@ function loadGame(json) {
     openCardStack = json.game.openCardStack;
     playerCards = json.game.playerCards;
 
+    if(updateDivs) {
+        updateDivs()
+        sizeChanged = false;
+    }
+
     updateGame();
 
-    if(window.location.href.includes('new') || window.location.href.includes('load') || window.location.href.includes('save')) {
+    if(window.location.href.includes('game')) {
         nextStep();
     }
 }
@@ -421,6 +512,7 @@ function loadGame(json) {
  *
  */
 $(document).ready(function() {
+    navBar();
     iconBar();
     connectWebSocket();
 });
